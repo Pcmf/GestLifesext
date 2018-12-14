@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="panel">
+    <div class="panel-headding panel-primary">
+      <h3 class="text-center text-primary">Alterar a Password</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-signin" #f="ngForm" (ngSubmit)="changePass(f.value)">
+        <div class="form-group">
+          <div class="alert alert-danger"  *ngIf="invalid2Pass">
+            As passwords não coincidem!
+          </div>
+          <div class="alert alert-danger"  *ngIf="erro">
+            Houve um erro na base de dados!
+          </div>
+          <label class="">Nome</label>
+          <input type="text" class="form-control" #nome name="nome" [(ngModel)]="u.nome"/>            
+          <label class="">Utilizador</label>
+          <input type="text" class="form-control" #username name="username" [(ngModel)]="u.username"/>          
+          <label class="sr-only">Nova password</label>
+          <input type="password" class="form-control" #pass1 name="pass1" ngModel placeholder="Nova password"/>
+          <label class="sr-only">Confirmar password</label>
+          <input type="password" class="form-control" #pass2 name="pass2" ngModel placeholder="Confirmar password"/>
+          <button class="btn btn-outline-success btn-block" type="submit">Confirmar</button> 
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

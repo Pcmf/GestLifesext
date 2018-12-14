@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="header">
+    <h2 class="text-center text-primary">Lista de documentos a anexar</h2>
+  </div>
+
+  <div class="corpo">
+    <div class="table-sm">
+      <form #f="ngForm" (ngSubmit)="guardarDocs(f.value)">
+      <table class="table table-condensed">
+        <thead class="thead-dark">
+          <tr>
+            <th>Sigla</th>
+            <th>Documento</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of documentos">
+            <td>{{d.sigla}}</td>
+            <td>{{d.nomedoc}}</td>
+            <td>{{d.descricao}}</td>
+            <td>
+                <div class="file-upload">
+                    <input type="hidden" name="H{{d.sigla}}">
+                    <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel (change)="handleInputChange($event, d.id )" />
+                </div> 
+              </td>       
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <button class="btn btn-outline-success col" type="submit">Guardar</button>
+        <button class="btn btn-outline-danger col" type="submit" (click)="limparDocs()">Limpar</button>
+        <button class="btn btn-outline-default col " onclick="history.back(-1)">Cancelar</button>        
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+

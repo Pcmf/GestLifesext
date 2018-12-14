@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="header">
+    <h3>Lista</h3>
+  </div>
+  <div class="table-responsive-sm">
+    <table class="table table-condensed-sm table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Cliente</th>
+          <th>Nome</th>
+          <th>NIF</th>
+          <th>Email</th>
+          <th>Data entrada</th>
+          <th>Situação</th>
+          <th>Data situação</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ld of leads">
+          <th>{{ld.lead}}</th>
+          <td>{{ld.nome}}</td>
+          <td>{{ld.nif}}</td>
+          <td>{{ld.email}}</td>
+          <td>{{ld.dataentrada}}</td>
+          <td>{{ld.status}}</td>
+          <td>{{ld.datastatus}}</td>
+          <td>
+            <button class="btn btn-outline-info" (click)="anexarDoc(ld.lead)" title="Anexar documentação"><i class="fa fa-upload"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
