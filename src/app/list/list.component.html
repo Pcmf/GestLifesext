@@ -3,21 +3,31 @@
     <h3>Lista</h3>
   </div>
   <div class="table-responsive-sm">
-    <table class="table table-condensed-sm table-striped">
+    <table class="table table-condensed-sm table-striped" [mfData]="leads" #mf="mfDataTable" [mfRowsOnPage]="10">
       <thead class="thead-dark">
         <tr>
-          <th>Cliente</th>
-          <th>Nome</th>
+          <th>
+            <mfDefaultSorter by="lead">Cliente</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="nome">Nome</mfDefaultSorter>
+          </th>
           <th>NIF</th>
           <th>Email</th>
-          <th>Data entrada</th>
-          <th>Situação</th>
-          <th>Data situação</th>
+          <th>
+              <mfDefaultSorter by="dataentrada">Data Entrada</mfDefaultSorter>            
+          </th>
+          <th>
+              <mfDefaultSorter by="status">Situação</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="datastatus">Data Situação</mfDefaultSorter>
+          </th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ld of leads">
+        <tr *ngFor="let ld of mf.data">
           <th>{{ld.lead}}</th>
           <td>{{ld.nome}}</td>
           <td>{{ld.nif}}</td>
@@ -26,10 +36,18 @@
           <td>{{ld.status}}</td>
           <td>{{ld.datastatus}}</td>
           <td>
-            <button class="btn btn-outline-info" (click)="anexarDoc(ld.lead)" title="Anexar documentação"><i class="fa fa-upload"></i></button>
+              <button class="btn btn-outline-info" (click)="anexarDoc(ld.lead)" title="Anexar documentação"><i class="fa fa-upload"></i></button>
+              <button class="btn btn-outline-primary" (click)="verDet(ld.lead)" title="Editar"><i class="fa fa-pencil"></i></button>
           </td>
         </tr>
       </tbody>
+      <tfoot>
+          <tr>
+              <td colspan="8">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+          </tr>
+      </tfoot>
     </table>
   </div>
 </div>

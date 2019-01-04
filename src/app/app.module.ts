@@ -14,6 +14,9 @@ import { HttpModule } from '@angular/http';
 import { ChangeComponent } from './change/change.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AnexarDocsComponent } from './anexar-docs/anexar-docs.component';
+import { DataTableModule } from 'angular-6-datatable';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShowDocComponent } from './show-doc/show-doc.component';
 
 @NgModule({
   declarations: [
@@ -25,18 +28,22 @@ import { AnexarDocsComponent } from './anexar-docs/anexar-docs.component';
     DetComponent,
     NavbarComponent,
     ChangeComponent,
-    AnexarDocsComponent
+    AnexarDocsComponent,
+    ShowDocComponent
   ],
   imports: [
     HttpModule,
     BrowserModule,
+    DataTableModule,
     FormsModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
       {path: 'dash' , component: DashboardComponent, canActivate: [AuthGuardService]},
       {path: 'form' , component: FormComponent, canActivate: [AuthGuardService]},
       {path: 'anexar/:lead' , component: AnexarDocsComponent, canActivate: [AuthGuardService]},
       {path: 'list' , component: ListComponent, canActivate: [AuthGuardService]},
       {path: 'det/:lead' , component: DetComponent, canActivate: [AuthGuardService]},
+      {path: 'showdoc/:lead/:linha' , component: ShowDocComponent, canActivate: [AuthGuardService]},
       {path: 'login' , component: LoginComponent},
       {path: 'change' , component: ChangeComponent, canActivate: [AuthGuardService]},
       {path: '**' , component: DashboardComponent, canActivate: [AuthGuardService]}

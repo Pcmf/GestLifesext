@@ -14,21 +14,30 @@ export class DataService {
 
   /**  */
   getData ( params) {
-    return this.http.get('http://localhost/SiSLeadsRest/' + params);
+    return this.http.get('http://localhost/sisleads/SiSLeadsRest/' + params);
   }
 
   saveData (path: string, obj: any) {
-    return this.http.post('http://localhost/SiSLeadsRest/' + path, JSON.stringify(obj));
+    return this.http.post('http://localhost/sisleads/SiSLeadsRest/' + path, JSON.stringify(obj));
     // incluir uma forma de notificar que os dados foram inseridos ou erro
   }
 
+  editData (path: string, obj: any) {
+    return this.http.put('http://localhost/sisleads/SiSLeadsRest/' + path, JSON.stringify(obj));
+    // incluir uma forma de notificar que os dados foram inseridos ou erro
+  }
+
+  deleteData (path: string) {
+    return this.http.delete('http://localhost/sisleads/SiSLeadsRest/' + path );
+  }
+
   checkuser (credenciais) {
-    return this.http.post('http://localhost/SiSLeadsRest/login',
+    return this.http.post('http://localhost/sisleads/SiSLeadsRest/login',
         JSON.stringify(credenciais))
         .pipe(
           map((response: any) => {
          //   console.log(response._body);
-            if ( response._body ) {
+            if ( response._body && this.helper.decodeToken(response._body).tipo === 'GExterno') {
               sessionStorage.setItem('token', response._body);
               this.navbarService.setNavState(this.helper.decodeToken(response._body));
               return true;

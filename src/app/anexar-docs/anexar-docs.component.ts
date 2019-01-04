@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-anexar-docs',
@@ -14,14 +15,14 @@ export class AnexarDocsComponent implements OnInit {
   private indice: number;
   private filename: string;
   private lead: number;
-  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute ) {
-    this.dataService.getData('docsnecessarios').subscribe(
-      resp => {
-        this.documentos = resp.json();
-      }
-    );
+  imagePath: any;
+  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute, private _sanitizer: DomSanitizer ) {
+
     this.route.paramMap.subscribe(
-      param => this.lead = +param.getAll
+      param => {
+        this.lead = +param.get('lead');
+        this.loadDados();
+      }
     );
   }
 
@@ -45,28 +46,44 @@ export class AnexarDocsComponent implements OnInit {
     obj.id = this.indice;
     obj.nomefx = this.filename;
     obj.base64 = reader.result;
-    this.docline.push(obj);
-  }
-
-  guardarDocs (form) {
-    console.log(this.docline);
-    this.dataService.saveData('savedocs/' + this.lead, this.docline)
+    this.dataService.saveData('savedocs/' + this.lead, obj)
       .subscribe( resp => {
         if (resp) {
-          alert('Documentos guardados!');
-          this.docline = [];
-          this.router.navigate(['/list']);
+          this.loadDados();
         }
       });
   }
 
-  limparDocs () {
-    this.docline = [];
-    this.router.navigate(['/anexar']);
+
+
+  deleteDoc (doc) {
+    console.log(doc);
+    this.dataService.deleteData('docs/' + this.lead + '/' + doc.id).subscribe(
+      resp0 => this.loadDados()
+    );
   }
+
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => this.lead = +params.get('lead'));
   }
 
+  loadDados () {
+    this.dataService.getData('docs/' + this.lead).subscribe(
+      resp => {
+        this.documentos = resp.json();
+      }
+    );
+  }
+
+  verDoc (doc) {
+    // abrir um modal para visualizar o documento
+    this.dataService.getData('doc/' + this.lead + '/' + doc.linha).subscribe(
+      (resp: any) => {
+        const document = resp.json()[0];
+       // console.log(document.fx64);
+       //  this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/pdf;base64,' + document.fx64 );
+      }
+    );
+  }
 }

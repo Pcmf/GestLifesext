@@ -1,40 +1,121 @@
 <div class="container" style="background-color: lightgrey">
-    <h2 class="text-center text-info">Detalhe do cliente <strong>{{lead}}</strong></h2>
-    <p>&nbsp;</p>
-    <form #f="ngForm" (ngSubmit)="editar(f)">
-      <div class="form-row">
-        <div class=" form-group col-md-3">
-          <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode"/>
-          <label for="inputNome">Nome *</label>
-          <input type="text" class="form-control"  id="inputNome"  name="nome" [(ngModel)]="elem.nome" required>
-        </div>
-        <div class=" form-group col-md-1">
-          <label for="inputIdade">Idade *</label>
-          <input type="number" min="18" max="99" class="form-control" id="inputIdade" name="idade" [(ngModel)]="elem.idade" required>
-        </div>
-        <div class="form-group col-md-2">
-          <label for="inputTelefone">Telefone *</label>
-          <input type="text" class="form-control" id="inputTelefone" name="telefone" [(ngModel)]="elem.telefone" required>
-        </div>
-        <div class=" form-group col-md-2">
-          <label for="inputNIF">NIF *</label>
-          <input type="number" class="form-control" id="inputNIF" name="nif" [(ngModel)]="elem.nif" required>
-        </div>
-        <div class=" form-group col-md-4">
-          <label for="inputEmail4">Email *</label>
-          <input type="email" class="form-control" id="inputEmail4" name="email" [(ngModel)]="elem.email" required>
+  <h2 class="text-center text-info">Detalhe do cliente <strong>{{lead}}</strong></h2>
+  <p>&nbsp;</p>
+  <form #f="ngForm" (ngSubmit)="editar(f)">
+    <input type="hidden" name="user" [(ngModel)]="elem.user" />
+    <div class="form-row">
+      <div class=" form-group col-md-3">
+        <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode" />
+        <label for="inputNome">Nome *</label>
+        <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="elem.nome" required>
+      </div>
+      <div class=" form-group col-md-1">
+        <label for="inputIdade">Idade *</label>
+        <input type="number" min="18" max="99" class="form-control" id="inputIdade" name="idade" [(ngModel)]="elem.idade"
+          required>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputTelefone">Telefone *</label>
+        <input type="text" class="form-control" id="inputTelefone" name="telefone" [(ngModel)]="elem.telefone" required>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputNIF">NIF *</label>
+        <input type="number" class="form-control" id="inputNIF" name="nif" [(ngModel)]="elem.nif" required>
+      </div>
+      <div class=" form-group col-md-4">
+        <label for="inputEmail4">Email *</label>
+        <input type="email" class="form-control" id="inputEmail4" name="email" [(ngModel)]="elem.email" required>
+      </div>
+    </div>
+    <!--Profissional-->
+    <div class="form-row">
+      <div class=" form-group col-md-3">
+        <label for="inputProfissaao">Profissão *</label>
+        <input type="text" class="form-control" id="inputProfissaao" name="profissao" [(ngModel)]="elem.profissao"
+          required>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputTipocontrato">Tipo Contrato *</label>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="inputTipocontrato" name="tipocontrato" [(ngModel)]="elem.tipocontrato"
+            required>
+            <option selected>...</option>
+            <option *ngFor="let p of sitprofissionais" [value]="p.id">{{p.nome}}</option>
+          </select>
         </div>
       </div>
-      <!--Profissional-->
+      <div class=" form-group col-md-2">
+        <label for="inputVencimento">Vencimento *</label>
+        <input type="number" class="form-control" id="inputVencimento" name="vencimento" [(ngModel)]="elem.vencimento"
+          required>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputAnoInicio">Ano Inicio *</label>
+        <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio" name="anoinicio"
+          [(ngModel)]="elem.anoinicio" required>
+      </div>
+    </div>
+    <!-- Estado civil e IRS-->
+    <div class="form-row">
+      <div class=" form-group col-md-2">
+        <label for="inputEstadoCivil">Estado Civil *</label>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="inputEstadoCivil" name="estadocivil" [(ngModel)]="elem.estadocivil"
+            required>
+            <option selected>...</option>
+            <option *ngFor="let s of sitfamiliares" [value]="s.id">{{s.nome}}</option>
+          </select>
+        </div>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputAddress2">IRS *</label>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="inputIRS" name="irs" [(ngModel)]="elem.irs" required>
+            <option selected>...</option>
+            <option value="1">Sim</option>
+            <option value="2">Sim Junto</option>
+            <option value="3">Sim Separado</option>
+            <option value="4">Não</option>
+          </select>
+        </div>
+      </div>
+      <div class=" form-group col-md-1">
+        <label for="inputFilhos">Filhos</label>
+        <input type="number" class="form-control" id="inputFilhos" name="filhos" [(ngModel)]="elem.filhos">
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="input2Proponente">Segundo Proponente</label>
+        <input class="form-control" type="checkbox" name="segundoProponente" [(ngModel)]="segundoProponente" [checked]="segundoProponente" />
+      </div>
+    </div>
+    <!-- Segundo proponente-->
+    <div class=" border border-default" *ngIf="segundoProponente">
       <div class="form-row">
-        <div class=" form-group col-md-3">
-          <label for="inputProfissaao">Profissão *</label>
-          <input type="text" class="form-control" id="inputProfissaao" name="profissao" [(ngModel)]="elem.profissao" required>
+        <div class=" form-group col-md-1">
+          <label for="inputConjugue">Conjugue</label>
+          <input type="checkbox" class="form-control" id="inputConjugue" name="isConjugue" [(ngModel)]="isConjugue"
+            [checked]="isConjugue">
         </div>
         <div class=" form-group col-md-2">
-          <label for="inputTipocontrato">Tipo Contrato *</label>
+          <label for="inputRelacao">Outra relação</label>
+          <input *ngIf="isConjugue" readonly type="text" class="form-control" id="inputRelacao">
+          <input *ngIf="!isConjugue" type="text" class="form-control" id="inputRelacao" name="parentesco" [(ngModel)]="elem.parentesco2">
+        </div>
+        <div class=" form-group col-md-1">
+          <label for="inputIdade2">Idade *</label>
+          <input type="number" min="18" max="99" class="form-control" id="inputIdade2" name="idade2" [(ngModel)]="elem.idade2"
+            [required]="segundoProponente">
+        </div>
+        <div class=" form-group col-md-2">
+          <label for="inputProfissao2">Profissão *</label>
+          <input type="text" class="form-control" id="inputProfissao2" name="profissao2" [(ngModel)]="elem.profissao2"
+            [required]="segundoProponente">
+        </div>
+        <div class=" form-group col-md-2">
+          <label for="inputTipocontrato2">Tipo Contrato *</label>
           <div class="input-group mb-3">
-            <select class="custom-select" id="inputTipocontrato" name="tipocontrato" [(ngModel)]="elem.tipocontrato" required>
+            <select class="custom-select" id="inputTipocontrato2" name="tipocontrato2" [(ngModel)]="elem.tipocontrato2"
+              [required]="segundoProponente">
               <option selected>...</option>
               <option value="1">Efectivo</option>
               <option value="2">Termo Certo</option>
@@ -47,262 +128,189 @@
           </div>
         </div>
         <div class=" form-group col-md-2">
-          <label for="inputVencimento">Vencimento *</label>
-          <input type="number" class="form-control" id="inputVencimento" name="vencimento" [(ngModel)]="elem.vencimento" required>
+          <label for="inputVencimento2">Vencimento *</label>
+          <input type="number" class="form-control" id="inputVencimento2" name="vencimento2" [(ngModel)]="elem.vencimento2"
+            [required]="segundoProponente">
         </div>
         <div class=" form-group col-md-2">
-          <label for="inputAnoInicio">Ano Inicio *</label>
-          <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio" name="anoinicio" [(ngModel)]="elem.anoinicio" required>
+          <label for="inputAnoInicio2">Ano Inicio *</label>
+          <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2"
+            [(ngModel)]="elem.anoinicio2" [required]="segundoProponente">
         </div>
       </div>
-      <!-- Estado civil e IRS-->
+
+      <!--Habitação do segundo proponente-->
       <div class="form-row">
-        <div class=" form-group col-md-2">
-          <label for="inputEstadoCivil">Estado Civil *</label>
+        <div class=" form-group col-md-3 text-center">
+          <label for="inputAddress2">Habitação do 2º Proponente</label>
+          <div class="form-check form-check-inline">
+            <input class="form-control" type="checkbox" name="mesmahabitacao2" id="mesmahabitacao" [(ngModel)]="elem.mesmahabitacao"
+              [checked]="elem.mesmahabitacao=='Sim'">
+            <label class="form-check-label" for="mesmahabitacao2">Mesma do 1º</label>
+          </div>
+        </div>
+        <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
+          <label for="inputHabitacao2">Habitação</label>
           <div class="input-group mb-3">
-            <select class="custom-select" id="inputEstadoCivil" name="estadocivil" [(ngModel)]="elem.estadocivil" required>
+            <select class="custom-select" id="inputHabitacao2" name="habitacao2" [(ngModel)]="elem.tipohabitacao2">
               <option selected>...</option>
-              <option *ngFor="let s of sitfamiliares" [value]="s.id">{{s.nome}}</option>
+              <option *ngFor="let h2 of tiposhabitacao" [value]="h2.id">{{h2.nome}}</option>
             </select>
           </div>
         </div>
-        <div class=" form-group col-md-2">
-          <label for="inputAddress2">IRS *</label>
-          <div class="input-group mb-3">
-              <select class="custom-select" id="inputIRS" name="irs" [(ngModel)]="elem.irs" required>
-                <option selected>...</option>
-                <option value="1">Sim</option>
-                <option value="2">Sim Junto</option>
-                <option value="3">Sim Separado</option>
-                <option value="4">Não</option>
-              </select>
-            </div>
+        <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==3)">
+          <label for="inputRenda2">Renda/Prestação</label>
+          <input type="number" class="form-control" id="inputRenda2" name="valorhabitacao2" [(ngModel)]="elem.valorhabitacao2" />
         </div>
-        <div class=" form-group col-md-1">
-          <label for="inputFilhos">Filhos</label>
-          <input type="number" class="form-control" id="inputFilhos" name="filhos" [(ngModel)]="elem.filhos">
-        </div>
-        <div class=" form-group col-md-2">
-          <label for="input2Proponente">Segundo Proponente</label>
-          <input class="form-control" type="checkbox" name="segundoProponente" [(ngModel)]="elem.segundoProponente" />
-        </div>
-      </div>
-      <!-- Segundo proponente-->
-      <div class=" border border-default" *ngIf="f.value.segundoProponente">
-        <div class="form-row">
-          <div class=" form-group col-md-1">
-            <label for="inputConjugue">Conjugue</label>
-            <input type="checkbox" class="form-control" id="inputConjugue" name="isConjugue" [(ngModel)]="elem.isConjugue">
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputRelacao">Outra relação</label>
-            <input *ngIf="f.value.isConjugue" readonly type="text" class="form-control" id="inputRelacao">
-            <input *ngIf="!f.value.isConjugue" type="text" class="form-control" id="inputRelacao" name="parentesco" [(ngModel)]="elem.parentesco">
-          </div>
-          <div class=" form-group col-md-1">
-            <label for="inputIdade2">Idade *</label>
-            <input type="number" min="18" max="99" class="form-control" id="inputIdade2" name="idade2" [(ngModel)]="elem.idade2" [required]="f.value.segundoProponente">
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputProfissao2">Profissão *</label>
-            <input type="text" class="form-control" id="inputProfissao2" name="profissao2" [(ngModel)]="elem.profissao2" [required]="f.value.segundoProponente">
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputTipocontrato2">Tipo Contrato *</label>
-            <div class="input-group mb-3">
-              <select class="custom-select" id="inputTipocontrato2" name="tipocontrato2" [(ngModel)]="elem.tipocontrato2" [required]="f.value.segundoProponente">
-                <option selected>...</option>
-                <option value="1">Efectivo</option>
-                <option value="2">Termo Certo</option>
-                <option value="3">Independente</option>
-                <option value="4">Temporário</option>
-                <option value="5">Reformado</option>
-                <option value="6">Desempregado</option>
-                <option value="7">Outro</option>
-              </select>
-            </div>
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputVencimento2">Vencimento *</label>
-            <input type="number" class="form-control" id="inputVencimento2" name="vencimento2" [(ngModel)]="elem.vencimento2" [required]="f.value.segundoProponente">
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputAnoInicio2">Ano Inicio *</label>
-            <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2" [(ngModel)]="elem.anoinicio2" [required]="f.value.segundoProponente">
-          </div>
-        </div>
-  
-        <!--Habitação do segundo proponente-->
-        <div class="form-row">
-          <div class=" form-group col-md-3 text-center">
-            <label for="inputAddress2">Habitação do 2º Proponente</label>
-            <div class="form-check form-check-inline">
-              <input class="form-control" type="checkbox" name="mesmahabitacao2" id="mesmahabitacao2" [(ngModel)]="elem.mesmahabitacao2">
-              <label class="form-check-label" for="mesmahabitacao2">Mesma do 1º</label>
-            </div>
-          </div>
-          <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
-            <label for="inputHabitacao2">Habitação</label>
-            <div class="input-group mb-3">
-              <select class="custom-select" id="inputHabitacao2" name="habitacao2" [(ngModel)]="elem.habitacao2">
-                <option selected>...</option>
-                <option value="1">Alugada</option>
-                <option value="2">Familiares</option>
-                <option value="3">Própria sem CH</option>
-                <option value="4">Própria com CH</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==4)">
-            <label for="inputRenda2">Renda/Prestação</label>
-            <input type="number" class="form-control" id="inputRenda2" name="valorhabitacao2" [(ngModel)]="elem.valorhabitacao2"/>
-          </div>
-          <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==4)">
-            <label for="">Declarada</label>
-            <div class="input-group">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="declarada2sim" value="sim" name="declarada2" [(ngModel)]="elem.declarada2">
-                <label class="form-check-label" for="declarada2sim">Sim</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="declarada2nao" value="nao" name="declarada2" [(ngModel)]="elem.declarada2">
-                <label class="form-check-label" for="declarada2nao">Não</label>
-              </div>
-            </div>
-          </div>
-          <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
-            <label for="inputAnoHabitacao2">Desde</label>
-            <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao2" name="anohabitacao2" [(ngModel)]="elem.anohabitacao2">
-          </div>
-        </div>
-      </div>
-      <!--Habitação do primeiro proponente-->
-      <div class="form-row">
-        <div class=" form-group col-md-2">
-          <label for="inputHabitacao">Habitação *</label>
-          <div class="input-group mb-3">
-            <select class="custom-select" id="inputHabitacao" name="habitacao" [(ngModel)]="elem.habitacao" required>
-              <option selected>...</option>
-              <option value="1">Alugada</option>
-              <option value="2">Familiares</option>
-              <option value="3">Própria sem CH</option>
-              <option value="4">Própria com CH</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group col-md-2" *ngIf="(f.value.habitacao==1 || f.value.habitacao==4)">
-          <label for="inputRenda">Renda/Prestação</label>
-          <input type="number" class="form-control" id="inputRenda" name="valorhabitacao" [(ngModel)]="elem.valorhabitacao" />
-        </div>
-        <div class="form-group col-md-2" *ngIf="(f.value.habitacao==1 || f.value.habitacao==4)">
+        <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==3)">
           <label for="">Declarada</label>
           <div class="input-group">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="declarada" id="declaradasim" value="mesma" [(ngModel)]="elem.declarada">
-              <label class="form-check-label" for="declaradasim">Sim</label>
+              <input class="form-check-input" type="radio" id="declarada2sim" value="Sim" name="declarada2" [(ngModel)]="elem.declarada2">
+              <label class="form-check-label" for="declarada2sim">Sim</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="declarada" id="declaradanao" value="outra" [(ngModel)]="elem.declarada">
-              <label class="form-check-label" for="declaradanao">Não</label>
+              <input class="form-check-input" type="radio" id="declarada2nao" value="Nao" name="declarada2" [(ngModel)]="elem.declarada2">
+              <label class="form-check-label" for="declarada2nao">Não</label>
             </div>
           </div>
         </div>
-        <div class=" form-group col-md-2">
-          <label for="inputAnoHabitacao">Desde</label>
-          <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao" name="anohabitacao" [(ngModel)]="elem.anohabitacao">
+        <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
+          <label for="inputAnoHabitacao2">Desde</label>
+          <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao2" name="anohabitacao2"
+            [(ngModel)]="elem.anoiniciohabitacao2">
         </div>
       </div>
-      <!-- Outros Rendimentos -->
-      <div class="form-row" *ngFor="let or of ORArr; index as i; last as isLast">
-        <div class=" form-group col-md-4">
-          <label for="inputOR" *ngIf="i==0">Outros Rendimentos</label>
-          <input type="text" class="form-control" id="inputOR" name="orRendimento{{i}}" ngModel>
+    </div>
+    <!--Habitação do primeiro proponente-->
+    <div class="form-row">
+      <div class=" form-group col-md-2">
+        <label for="inputHabitacao">Habitação *</label>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="inputHabitacao" name="habitacao" [(ngModel)]="elem.tipohabitacao" required>
+            <option selected>...</option>
+            <option *ngFor="let h of tiposhabitacao" [value]="h.id">{{h.nome}}</option>
+          </select>
         </div>
-        <div class=" form-group col-md-2">
-          <label for="inputORValor" *ngIf="i==0">Valor</label>
-          <input type="number" class="form-control" id="inputORValor" name="orValor{{i}}" ngModel>
+      </div>
+      <div class="form-group col-md-2" *ngIf="(f.value.habitacao==1 || f.value.habitacao==3)">
+        <label for="inputRenda">Renda/Prestação</label>
+        <input type="number" class="form-control" id="inputRenda" name="valorhabitacao" [(ngModel)]="elem.valorhabitacao" />
+      </div>
+      <div class="form-group col-md-2" *ngIf="(f.value.habitacao==1 || f.value.habitacao==3)">
+        <label for="">Declarada</label>
+        <div class="input-group">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="declarada" id="declaradasim" [(ngModel)]="elem.declarada"
+              value="Sim">
+            <label class="form-check-label" for="declaradasim">Sim</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="declarada" id="declaradanao" [(ngModel)]="elem.declarada"
+              value="Nao">
+            <label class="form-check-label" for="declaradanao">Não</label>
+          </div>
         </div>
-        <div class=" form-group col-md-2">
-          <label for="inputPeriocidade" *ngIf="i==0">Periocidade</label>
-          <div class="input-group mb-3">
-            <select class="custom-select" id="inputPeriocidade" name="orPeriocidade{{i}}" ngModel>
-              <option selected>...</option>
-              <option value="Mes">Mensal</option>
-              <option value="Ano">Anual</option>
-            </select>
-          </div>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputAnoHabitacao">Desde</label>
+        <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao" name="anohabitacao"
+          [(ngModel)]="elem.anoiniciohabitacao">
+      </div>
+    </div>
+    <!-- Outros Rendimentos -->
+    <div class="form-row" *ngFor="let or of ORArr; index as i; last as isLast">
+      <div class=" form-group col-md-4">
+        <label for="inputOR" *ngIf="i==0">Outros Rendimentos</label>
+        <input type="text" class="form-control" id="inputOR" name="orRendimento{{i}}" [(ngModel)]="or.tiporendimento">
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputORValor" *ngIf="i==0">Valor</label>
+        <input type="number" class="form-control" id="inputORValor" name="orValor{{i}}" [(ngModel)]="or.valorrendimento">
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputPeriocidade" *ngIf="i==0">Periocidade</label>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="inputPeriocidade" name="orPeriocidade{{i}}" [(ngModel)]="or.periocidade">
+            <option selected>...</option>
+            <option value="Mes">Mensal</option>
+            <option value="Ano">Anual</option>
+          </select>
         </div>
-        <div class="form-group col-md-1">
-            <label for="add" *ngIf="i==0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <a *ngIf="i==0 || isLast" id="add" class="btn btn" title="Adicionar uma linha" (click)="addLineOutrosRendimentos()"><i class="fa fa-plus-circle"></i></a>
-            <a *ngIf="i>0" class="btn btn-sm" title="Remover linha" (click)="removeLineOutrosRendimentos(i)"><i class="fa fa-minus-circle"></i></a>
-          </div>      
       </div>
-      <!-- Outros Créditos -->
-      <div class="form-row" *ngFor="let oc of OCArr; index as i; last as isLast;">
-          <div class="form-group col-md-4">
-            <label for="inputOC" *ngIf="i==0">Outros Créditos</label>
-            <input type="text" class="form-control" id="inputOC" name="ocCredito{{i}}" ngModel>
-          </div>
-          <div class="form-group col-md-2">
-            <label for="inputOCValor" *ngIf="i==0">Valor</label>
-            <input type="number" class="form-control" id="inputOCValor" name="ocValor{{i}}" ngModel>
-          </div>
-          <div class="form-group col-md-2">
-            <label for="inputPrestacao" *ngIf="i==0">Prestação</label>
-            <input type="number" class="form-control" id="inputOCPrestacao" name="ocPrestacao{{i}}" ngModel>
-          </div>
-          <div class="form-group col-md-1">
-            <label for="add" *ngIf="i==0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <a *ngIf="i==0 || isLast" id="add" class="btn btn" title="Adicionar uma linha" (click)="addLineOutrosCreditos()"><i class="fa fa-plus-circle"></i></a>
-            <a *ngIf="i>0" class="btn btn-sm" title="Remover linha" (click)="removeLineOutrosCreditos(i)"><i class="fa fa-minus-circle"></i></a>
-          </div>
+      <div class="form-group col-md-1">
+        <label for="add" *ngIf="i==0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <a *ngIf="i==0 || isLast" id="add" class="btn btn" title="Adicionar uma linha" (click)="addLineOutrosRendimentos()"><i
+            class="fa fa-plus-circle"></i></a>
+        <a *ngIf="i>0" class="btn btn-sm" title="Remover linha" (click)="removeLineOutrosRendimentos(i)"><i class="fa fa-minus-circle"></i></a>
       </div>
-      <!--Informações sobre o crédito pretendido -->
-      <div class="form-row">
-          <div class=" form-group col-md-2">
-            <label for="inputOC">Valor Pretendido *</label>
-            <input type="number" class="form-control" id="inputValorPretendido" name="valorpretendido" ngModel required>
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputTipocredito">Tipo Crédito</label>
-            <div class="input-group mb-3">
-                <select class="custom-select" id="inputTipocredito" name="tipocredito" ngModel required>
-                  <option selected>...</option>
-                  <option value="CP">Pessoal</option>
-                  <option value="CC">Consolidado</option>
-                  <option value="AU">Automovel</option>
-                </select>
-              </div>
-          </div>
-          <div class=" form-group col-md-2">
-            <label for="inputPrazo">Prazo</label>
-            <input type="number" class="form-control" id="inputPrazo" name="prazopretendido" ngModel>
-          </div>
-          <div class=" form-group col-md-2">
-              <label for="inputPrestacao">Prestação</label>
-              <input type="number" class="form-control" id="inputPrestacao" name="prestacaopretendida" ngModel>
-          </div> 
-          <div class=" form-group col-md-2">
-              <label for="inputFinalidade">Finalidade</label>
-              <input type="text" class="form-control" id="inputFinalidade" name="finalidade" ngModel>
-          </div>               
+    </div>
+    <!-- Outros Créditos -->
+    <div class="form-row" *ngFor="let oc of OCArr; index as i; last as isLast;">
+      <div class="form-group col-md-4">
+        <label for="inputOC" *ngIf="i==0">Outros Créditos</label>
+        <input type="text" class="form-control" id="inputOC" name="ocCredito{{i}}" [(ngModel)]="oc.tipocredito">
       </div>
-        <!--Informações -->
-        <div class="form-row">
-          <div class=" form-group col-md-6">
-            <label>Outras informações</label>
-            <textarea class="form-control" rows="2" name="info" ngModel></textarea>
-          </div>
-          <div class=" form-group col-md-6">
-            <label>&nbsp;</label>
-              <button type="submit" [disabled]="!f.valid" class="btn btn-outline-success btn-block">Seguinte</button>
-              <button type="button" class="btn btn-outline-danger btn-block" (click)="cancelar()">Cancelar</button>
-  
-          </div> 
-        </div> 
-    </form>
-  
-  </div>
-  
-  
+      <div class="form-group col-md-2">
+        <label for="inputOCValor" *ngIf="i==0">Valor</label>
+        <input type="number" class="form-control" id="inputOCValor" name="ocValor{{i}}" [(ngModel)]="oc.valorcredito">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputPrestacao" *ngIf="i==0">Prestação</label>
+        <input type="number" class="form-control" id="inputOCPrestacao" name="ocPrestacao{{i}}" [(ngModel)]="oc.prestacao">
+      </div>
+      <div class="form-group col-md-1">
+        <label for="add" *ngIf="i==0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <a *ngIf="i==0 || isLast" id="add" class="btn btn" title="Adicionar uma linha" (click)="addLineOutrosCreditos()"><i
+            class="fa fa-plus-circle"></i></a>
+        <a *ngIf="i>0" class="btn btn-sm" title="Remover linha" (click)="removeLineOutrosCreditos(i)"><i class="fa fa-minus-circle"></i></a>
+      </div>
+    </div>
+    <!--Informações sobre o crédito pretendido -->
+    <div class="form-row">
+      <div class=" form-group col-md-2">
+        <label for="inputOC">Valor Pretendido *</label>
+        <input type="number" class="form-control" id="inputValorPretendido" name="valorpretendido" [(ngModel)]="elem.valorpretendido"
+          required>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputTipocredito">Tipo Crédito</label>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="inputTipocredito" name="tipocredito" [(ngModel)]="elem.tipocredito"
+            required>
+            <option selected>...</option>
+            <option value="CP">Pessoal</option>
+            <option value="CC">Consolidado</option>
+            <option value="AU">Automovel</option>
+          </select>
+        </div>
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputPrazo">Prazo</label>
+        <input type="number" class="form-control" id="inputPrazo" name="prazopretendido" [(ngModel)]="elem.prazopretendido">
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputPrestacao">Prestação</label>
+        <input type="number" class="form-control" id="inputPrestacao" name="prestacaopretendida" [(ngModel)]="elem.prestacaopretendida">
+      </div>
+      <div class=" form-group col-md-2">
+        <label for="inputFinalidade">Finalidade</label>
+        <input type="text" class="form-control" id="inputFinalidade" name="finalidade" [(ngModel)]="elem.finalidade">
+      </div>
+    </div>
+    <!--Informações -->
+    <div class="form-row">
+      <div class=" form-group col-md-6">
+        <label>Outras informações</label>
+        <textarea class="form-control" rows="2" name="info" [(ngModel)]="elem.outrainfo"></textarea>
+      </div>
+      <div class=" form-group col-md-6">
+        <label>&nbsp;</label>
+        <button type="submit" [disabled]="!f.valid" class="btn btn-outline-success btn-block">Seguinte</button>
+        <button type="button" class="btn btn-outline-danger btn-block" onclick="history.back(-1)">Cancelar</button>
+
+      </div>
+    </div>
+  </form>
+
+</div>

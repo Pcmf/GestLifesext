@@ -1,18 +1,17 @@
 <div class="container">
   <div class="header">
-    <h2 class="text-center text-primary">Lista de documentos a anexar</h2>
+    <h2 class="text-center text-primary">Lista de documentos a anexar para cliente: {{lead}}</h2>
   </div>
 
   <div class="corpo">
     <div class="table-sm">
-      <form #f="ngForm" (ngSubmit)="guardarDocs(f.value)">
       <table class="table table-condensed">
         <thead class="thead-dark">
           <tr>
             <th>Sigla</th>
             <th>Documento</th>
             <th>Descrição</th>
-            <th>Ações</th>
+            <th colspan="2">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -21,22 +20,49 @@
             <td>{{d.nomedoc}}</td>
             <td>{{d.descricao}}</td>
             <td>
-                <div class="file-upload">
-                    <input type="hidden" name="H{{d.sigla}}">
-                    <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel (change)="handleInputChange($event, d.id )" />
-                </div> 
-              </td>       
+              <div *ngIf="d.recebido!=1" class="file-upload">
+                  <input type="hidden" name="H{{d.sigla}}">
+                  <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel (change)="handleInputChange($event, d.id )" />
+              </div>
+              <button *ngIf="d.recebido==1" type="button" class="btn btn-outline-danger pull-right" (click)="deleteDoc(d)" title="Remover documento"><i class="fa fa-times"></i></button>
+            </td>
+            <td>
+              <a *ngIf="d.recebido==1"  class="btn btn-outline-success"
+                       [routerLink]="['/showdoc', lead , d.linha]"
+                       title="Ver documento" >  
+                       <i class="fa fa-eye"></i>
+            </a>
+              <!--                       data-toggle="modal" 
+                       data-target="#imgModal"  -->
+            </td>       
           </tr>
         </tbody>
       </table>
       <div class="row">
-        <button class="btn btn-outline-success col" type="submit">Guardar</button>
-        <button class="btn btn-outline-danger col" type="submit" (click)="limparDocs()">Limpar</button>
-        <button class="btn btn-outline-default col " onclick="history.back(-1)">Cancelar</button>        
+        <button type="button" class="btn btn-outline-info col-2" onclick="history.back(-1)">Sair</button>        
       </div>
-    </form>
     </div>
   </div>
 </div>
 
 
+<!-- Modal 
+<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imgModalLabel">Documento </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>-->

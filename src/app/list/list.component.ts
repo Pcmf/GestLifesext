@@ -25,4 +25,8 @@ export class ListComponent implements OnInit {
     this.router.navigate(['/anexar/' + lead]);
   }
 
+  verDet (lead: number) {
+    this.router.navigate(['/det/' + lead]);
+  }
+
 }

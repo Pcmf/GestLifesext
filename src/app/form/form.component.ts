@@ -28,14 +28,13 @@ export class FormComponent  {
         (resp: any) => {
           console.log(resp);
           if  (resp.status === 200) {
-           this.router.navigate(['/anexar/' + resp._body ]);
+           this.router.navigate(['/anexar/' + +resp._body ]);
            // console.log(resp);
           } else  {
             alert('Erro nos dados');
           }
         }
       );
-   // this.router.navigate(['/anexar']);
   }
 
   cancelar () {
