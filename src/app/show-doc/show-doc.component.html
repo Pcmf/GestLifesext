@@ -1,3 +1,13 @@
 <div class="container">
-  
+  <div class="">
+    <h4 class="text-center text-info">
+      Cliente: {{lead}} - {{fxNome}}
+      <span class="pull-right fa fa-times" title="Fechar" onclick="window.history.back(-1)"></span>
+    </h4>
+  </div>
+  <iframe *ngIf="imagePath" [src]="imagePath" width="1100px" height="800px"></iframe>
+
+  <div class="text-center">
+    <button class="btn btn-outline-info" onclick="window.history.back(-1)"> Voltar</button>
+  </div>
 </div>

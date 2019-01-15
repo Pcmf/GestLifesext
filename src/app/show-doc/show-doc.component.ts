@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Url } from 'url';
 
 @Component({
   selector: 'app-show-doc',
@@ -11,9 +12,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ShowDocComponent {
   lead: number;
   linha: number;
-  imagePath: any;
+  fxNome: string;
+  imagePath: Url = null;
+  private data: any;
+  private fileName: string;
   constructor(private dataService: DataService,
-              private router: Router,
                private route: ActivatedRoute,
                private _sanitizer: DomSanitizer ) {
 
@@ -24,8 +27,8 @@ export class ShowDocComponent {
         this.dataService.getData('doc/' + this.lead + '/' + this.linha).subscribe(
           (resp: any) => {
             const document = resp.json()[0];
-           // console.log(document.fx64);
-            this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + document.fx64 );
+            this.fxNome = document.nomedoc;
+            this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + document.fx64);
           }
         );
       }

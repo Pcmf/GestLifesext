@@ -9,7 +9,7 @@ import { NavbarService } from '../navbar.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnDestroy {
-  private loginName: any;
+  loginName: any;
   private helper = new JwtHelperService;
 
   constructor(private loginService: DataService, private navService: NavbarService) {
@@ -21,13 +21,26 @@ export class NavbarComponent implements OnDestroy {
     }
   }
 
-  logout () {
+ /* logout () {
      this.loginService.logout();
-   }
+   } */
 
    ngOnDestroy () {
      this.logout();
    }
+
+   logout() {
+    sessionStorage.removeItem('token');
+  }
+
+  isLoggedIn() {
+      const token = sessionStorage.getItem('token');
+      if ( token && this.helper.isTokenExpired(token)) {
+        return true;
+      } else {
+        return false;
+      }
+  }
 }
 
 

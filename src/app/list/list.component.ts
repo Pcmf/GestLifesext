@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  private leads: any = [];
+  leads: any = [];
   constructor(private dataService: DataService, private router: Router) {
 
    }

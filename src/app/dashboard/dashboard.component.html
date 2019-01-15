@@ -1,3 +1,55 @@
-<p>
-  dashboard works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="text-center col">
+      <h2 class="text-info">Pedidos de Financiamento</h2>
+    </div>
+  </div>
+  <div class="container central">
+  <div class="row text-center">
+      <div class="card border-primary mb-4" style="width: 18rem;">
+          <div class="card-header">Submetidos</div>
+          <div class="card-body text-primary">
+            <h1 class="card-title text-center">{{submetidos}}</h1>
+            <p class="card-text">Todos os que foram submetidos.</p>
+          </div>
+        </div>
+        <div class="card border-secondary mb-4" style="width: 18rem;">
+          <div class="card-header">Pendentes</div>
+          <div class="card-body text-secondary">
+            <h1 class="card-title">{{pendentes}}</h1>
+            <p class="card-text">Aguardam resposta do parceiro.</p>
+          </div>
+        </div>
+        <div class="card border-success mb-4" style="width: 18rem;">
+          <div class="card-header">Aprovados</div>
+          <div class="card-body text-success">
+            <h1 class="card-title">{{aprovados}}</h1>
+            <p class="card-text">Foram aprovados pelo parceiro. Aguardam processamento da documentação.</p>
+          </div>
+        </div>
+  </div>
+  <div class="row text-center">
+        <div class="card border-success mb-4" style="width: 18rem;">
+          <div class="card-header">Financiados</div>
+          <div class="card-body text-success">
+            <h1 class="card-title">{{financiados}}</h1>
+            <p class="card-text">Financiamento concluido com sucesso.</p>
+          </div>
+        </div>
+        <div class="card border-info mb-4" style="width: 18rem;">
+          <div class="card-header">Recusados</div>
+          <div class="card-body text-info">
+            <h1 class="card-title">{{recusados}}</h1>
+            <p class="card-text">Processos recusados ou cancelados.</p>
+          </div>
+        </div>
+        <div class="card border-info mb-4" style="width: 18rem;">
+          <div class="card-header">Novo</div>
+          <div class="card-body text-info">
+            <a  class="btn btn-success nav-link"  routerLink="/form">Registar</a >
+            <p class="card-text">Iniciar o registo de novo pedido de financiamento.</p>
+          </div>
+        </div>
+  </div>
+</div>
+</div>

@@ -17,6 +17,7 @@ import { AnexarDocsComponent } from './anexar-docs/anexar-docs.component';
 import { DataTableModule } from 'angular-6-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowDocComponent } from './show-doc/show-doc.component';
+import { MuralComponent } from './mural/mural.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ShowDocComponent } from './show-doc/show-doc.component';
     NavbarComponent,
     ChangeComponent,
     AnexarDocsComponent,
-    ShowDocComponent
+    ShowDocComponent,
+    MuralComponent
   ],
   imports: [
     HttpModule,

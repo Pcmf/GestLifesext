@@ -15,8 +15,9 @@ export class DetComponent {
   isConjugue: boolean;
   OCArr: any = [{}];
   ORArr: any = [{}];
-  private lead: number;
-  private elem: any = [];
+  lead: number;
+  elem: any = [];
+  fornecedorCode: number;
   private userId: number;
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private router: Router) {

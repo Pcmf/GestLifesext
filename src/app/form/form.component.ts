@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent  {
-  private sitfamiliares: any = [];
-  private fornecedorCode: number;
+  sitfamiliares: any = [];
+  fornecedorCode: number;
   private userId: number;
-  private OCArr: any = [{}];
-  private ORArr: any = [{}];
+  OCArr: any = [{}];
+  ORArr: any = [{}];
 
 
   constructor(private loginService: DataService, private router: Router) {

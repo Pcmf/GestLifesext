@@ -1,0 +1,42 @@
+<button class="btn btn-sm btn-{{alertMsg}} {{btnClass}}" (click)=toogle()>{{txtButton}}</button>
+<div class="{{muralClass}}">
+    <div class="painel"  #scrollMe [scrollTop]="scrollMe.scrollHeight" >
+        <!-- Bloco de conversa -->
+        <div *ngFor="let conv of conversas">
+            <div *ngIf="conv.origem != userId" class="{{visible}}">
+                <span class="pull-left msg-in"   (click)="selectDestino(conv)">
+                    <small>{{conv.dataenvio}} 
+                        <strong> « {{conv.userorigem}}</strong>
+                    </small>
+                    <p *ngIf="conv.id==clicked">{{conv.assunto}}</p>
+                </span>  
+            </div>
+            <div *ngIf="conv.origem == userId" class="{{visible}}">
+                <span class="pull-right msg-out" (click)="selectDestino(conv)">
+                    <small>{{conv.dataenvio}} 
+                        <strong> » {{conv.userdestino}}</strong>
+                    </small>
+                    <p *ngIf="conv.id==clicked">{{conv.assunto}}</p>
+                </span>
+            </div> 
+        </div>
+
+    </div>
+    <div class="{{accoes}}">
+        <form #f="ngForm">
+        <input class="form-control" style="background-color:lightsteelblue; border: darkblue 1px inset" type="text" name="msg" [(ngModel)]="msg"/>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" class="btn btn-primary" [disabled]="!destino" (click)="enviarPara(destino, f.value)">Enviar para</button>
+                <div class="btn-group" role="group">
+                        <div ngbDropdown class="d-inline-block">
+                                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle></button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                  <button *ngFor="let u of utilizadores" class="dropdown-item" (click)="enviarPara(u.id, f.value)">{{u.nome}} - {{u.tipo}}</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+

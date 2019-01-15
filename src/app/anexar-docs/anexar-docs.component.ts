@@ -9,13 +9,11 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./anexar-docs.component.css']
 })
 export class AnexarDocsComponent implements OnInit {
-  private documentos: any = [];
-  private db64: any = [];
-  private docline: any = [];
+  documentos: any = [];
   private indice: number;
   private filename: string;
-  private lead: number;
-  imagePath: any;
+  lead: number;
+
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute, private _sanitizer: DomSanitizer ) {
 
     this.route.paramMap.subscribe(
@@ -76,14 +74,4 @@ export class AnexarDocsComponent implements OnInit {
     );
   }
 
-  verDoc (doc) {
-    // abrir um modal para visualizar o documento
-    this.dataService.getData('doc/' + this.lead + '/' + doc.linha).subscribe(
-      (resp: any) => {
-        const document = resp.json()[0];
-       // console.log(document.fx64);
-       //  this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/pdf;base64,' + document.fx64 );
-      }
-    );
-  }
 }

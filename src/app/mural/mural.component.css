@@ -1,0 +1,86 @@
+
+/* MURAL */
+.mb-c{
+    transition: all .5s;
+    position: absolute;
+    top: 160px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    z-index: 900     
+}
+.mb-o {
+    transition: all .5s;
+    position: absolute;
+    top: 160px;
+    right: 340px;
+    width: 30px;
+    height: 30px;
+    z-index: 900;
+}
+.mural-c {
+    transition: all .5s;
+    position: absolute;
+    top: 160px;
+    right: 0px;
+    width: 0px;
+    height: 460px;
+    background-color: #ffffff;
+    z-index: 900;
+}
+.mural-o {
+    transition: all .5s;
+    position: absolute;
+    top: 160px;
+    right: 0px;
+    width: 340px;
+    height: 460px;
+    background-color: #ffffff;
+    z-index: 900;
+    border: black 1px inset;
+}
+
+.painel{
+    width: 90%;
+    height: 80%;
+    margin: auto;
+    background-color: white;
+    overflow-y: scroll;
+}
+.accoes-c{
+    transition: all .5s;
+    width: 0;
+    margin: auto;
+    display: none;
+}
+.accoes-o{
+    transition: all .5s;
+    width: 90%;
+    margin: auto;
+    margin-top: 15px;
+}
+.visible{
+    transition: all .5s;
+    font-size: 1em;
+}
+.not-visible{
+    transition: all .5s;
+    font-size: 0;
+    
+}
+
+.msg-in{
+    background-color: lightgreen;
+    margin-top:7px;
+    border-radius: 5%;
+}
+
+.msg-out{
+    background-color:  lightblue;
+    margin-top: 7px;
+    border-radius: 5%;
+}
+
+.dropdown-item{
+    font-size: .7em;
+}

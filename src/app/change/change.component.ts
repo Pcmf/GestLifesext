@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./change.component.css']
 })
 export class ChangeComponent implements OnInit {
-  private invalid2Pass = false;
-  private erro = false;
-  private u: any = {};
+  invalid2Pass = false;
+  erro = false;
+  u: any = {};
   private newData: any;
   constructor(private loginService: DataService, private router: Router) {
    // this.loginService.getUserData().subscribe(resp => {

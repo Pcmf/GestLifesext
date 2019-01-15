@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent  {
-  private logErro: boolean;
+  logErro: boolean;
   state: any;
   private helper = new JwtHelperService();
   constructor(
