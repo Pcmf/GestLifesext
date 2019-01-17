@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="alert alert-info" role="alert">
+    <h4 class="text-center">
+      Detalhe do Cliente: {{elem.lead}}
+      <span class="pull-right fa fa-times" title="Fechar" onclick="window.history.back(-1)"></span>
+    </h4>
+    <hr>
+      <div class="form-row">
+        <div class=" form-group col-md-3">
+          <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode" />
+          <label for="inputNome">Nome </label>
+          <input type="text" class="form-control form-control-sm" id="inputNome" name="nome" [(ngModel)]="elem.nome" readonly>
+        </div>
+        <div class=" form-group col-md-1">
+          <label for="inputIdade">Idade </label>
+          <input type="text" class="form-control form-control-sm" id="inputIdade" name="idade" [(ngModel)]="elem.idade" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputTelefone">Telefone </label>
+          <input type="text" class="form-control form-control-sm" id="inputTelefone" name="telefone" [(ngModel)]="elem.telefone"
+            readonly>
+        </div>
+        <div class=" form-group col-md-2">
+          <label for="inputNIF">NIF </label>
+          <input type="text" class="form-control form-control-sm" id="inputNIF" name="nif" [(ngModel)]="elem.nif" readonly>
+        </div>
+        <div class=" form-group col-md-4">
+          <label for="inputEmail4">Email </label>
+          <input type="text" class="form-control form-control-sm" id="inputEmail4" name="email" [(ngModel)]="elem.email" readonly>
+        </div>
+      </div>
+    
+    <!--Informação sobre o credito pretendido-->
+    <div class="form-row">
+        <div class=" form-group col-md-2">
+          <label for="inputOC">Valor Pretendido </label>
+          <input type="number" class="form-control form-control-sm" id="inputValorPretendido" name="valorpretendido" [(ngModel)]="elem.valorpretendido" readonly>
+        </div>
+        <div class=" form-group col-md-2">
+          <label for="inputTipocredito">Tipo Crédito</label>
+          <div class="input-group input-group-sm mb-3">
+            <select class="custom-select" id="inputTipocredito" name="tipocredito" [(ngModel)]="elem.tipocredito" disabled>
+              <option selected>...</option>
+              <option value="CP">Pessoal</option>
+              <option value="CC">Consolidado</option>
+              <option value="AU">Automovel</option>
+            </select>
+          </div>
+        </div>
+        <div class=" form-group col-md-1">
+          <label for="inputPrazo">Prazo</label>
+          <input type="number" class="form-control form-control-sm" id="inputPrazo" name="prazopretendido" [(ngModel)]="elem.prazopretendido" readonly>
+        </div>
+        <div class=" form-group col-md-1">
+          <label for="inputPrestacao">Prestação</label>
+          <input type="number" class="form-control form-control-sm" id="inputPrestacao" name="prestacaopretendida" [(ngModel)]="elem.prestacaopretendida" readonly>
+        </div>
+        <div class=" form-group col-md-6">
+          <label for="inputFinalidade">Finalidade</label>
+          <input type="text" class="form-control form-control-sm" id="inputFinalidade" name="finalidade" [(ngModel)]="elem.finalidade" readonly>
+        </div>
+      </div>
+  </div>
+  <!-- Informação sobre a situação do processo-->
+  <div class="">
+    <h5>SITUAÇÃO DO PROCESSO - 
+        <small *ngIf="elem.sts!=23" >{{elem.status}} </small>
+        <small *ngIf="elem.sts==23" >Aprovado </small>
+        <small class="pull-right">({{elem.datastatus}})</small>
+    </h5>
+    <hr>
+    <div class="form-group col-md-3">
+      <label>Analista: </label>
+      <input class="form-control form-control-sm" type="text" [(ngModel)]="elem.nomeanalista" name="analista" readonly>
+    </div>
+    <div class="row">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>Parceiro</th>
+            <th>Nº Processo</th>
+            <th>Montante</th>
+            <th>Tipo</th>
+            <th>Prazo</th>
+            <th>Prestação</th>
+            <th>Status</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of submissoes">
+            <td>{{s.nome}}</td>
+            <td>{{s.processo}}</td>
+            <td>{{s.montante}} €</td>
+            <td>{{s.tipocredito}}</td>
+            <td>{{s.prazo}}</td>
+            <td>{{s.prestacao}}</td>
+            <td *ngIf="(elem.sts==23 && s.status!=7) || elem.sts!=23" [class]="s.nomeStatus">{{s.nomeStatus}}</td>
+            <td *ngIf="elem.sts==23 && s.status==7" [class]="s.nomeStatus">Aprovado</td>
+            <td>{{s.datastatus}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-outline-info" onclick="window.history.back(-1)">Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!--    <div class="form-row" *ngFor="let s of submissoes">
+      <div class="form-group col-2">
+        <label>Parceiro</label>
+        <input class="form-control form-control-sm" type="text" name="parceiro" [(ngModel)]="s.parceiro" readonly>
+      </div>
+      <div class="form-group col-2">
+        <label>Nº Processo</label>
+        <input class="form-control form-control-sm" type="text" name="parceiro" [(ngModel)]="s.parceiro" readonly>
+      </div>
+      <div class="form-group col-2">
+        <label>Montante</label>
+        <input class="form-control form-control-sm" type="text" name="parceiro" [(ngModel)]="s.parceiro" readonly>
+      </div>
+      <div class="form-group col-1">
+        <label>Tipo</label>
+        <input class="form-control form-control-sm" type="text" name="tipo" [(ngModel)]="s.tipo" readonly>
+      </div>
+      <div class="form-group col-1">
+        <label>Prazo</label>
+        <input class="form-control form-control-sm" type="text" name="prazo" [(ngModel)]="s.prazo" readonly>
+      </div>
+      <div class="form-group col-1">
+        <label>Prestação</label>
+        <input class="form-control form-control-sm" type="text" name="prestacao" [(ngModel)]="s.prestacao" readonly>
+      </div>
+      <div class="form-group col-2">
+        <label>Status</label>
+        <input class="form-control form-control-sm" type="text" name="status" [(ngModel)]="s.status" readonly>
+      </div>
+    </div>-->

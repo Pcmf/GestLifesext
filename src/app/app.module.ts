@@ -18,6 +18,7 @@ import { DataTableModule } from 'angular-6-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowDocComponent } from './show-doc/show-doc.component';
 import { MuralComponent } from './mural/mural.component';
+import { DetLeadComponent } from './det-lead/det-lead.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MuralComponent } from './mural/mural.component';
     ChangeComponent,
     AnexarDocsComponent,
     ShowDocComponent,
-    MuralComponent
+    MuralComponent,
+    DetLeadComponent
   ],
   imports: [
     HttpModule,
@@ -45,6 +47,7 @@ import { MuralComponent } from './mural/mural.component';
       {path: 'anexar/:lead' , component: AnexarDocsComponent, canActivate: [AuthGuardService]},
       {path: 'list' , component: ListComponent, canActivate: [AuthGuardService]},
       {path: 'det/:lead' , component: DetComponent, canActivate: [AuthGuardService]},
+      {path: 'detLead/:lead' , component: DetLeadComponent, canActivate: [AuthGuardService]},
       {path: 'showdoc/:lead/:linha' , component: ShowDocComponent, canActivate: [AuthGuardService]},
       {path: 'login' , component: LoginComponent},
       {path: 'change' , component: ChangeComponent, canActivate: [AuthGuardService]},

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
 import { interval } from 'rxjs';
+import { NavbarService } from '../navbar.service';
+import { enterView } from '@angular/core/src/render3/state';
 @Component({
   selector: 'app-mural',
   templateUrl: './mural.component.html',
@@ -22,23 +24,30 @@ export class MuralComponent {
   msg: string;
   lastMsg: number;
 
-  constructor(private dataService: DataService) {
-    this.lastMsg = 0;
-    this.alertMsg = 'info';
-    this.msg = '';
-      // obter o userId
-      this.userId = this.dataService.getUserId();
-      // obter Lista dos utilizadores
-      this.dataService.getData('users').subscribe(
-        resp => this.utilizadores = resp.json()
-      );
-      // obter conversas
-      this.getMsg();
-      const timer = interval( 10000);
-      timer.subscribe(
-        resp => this.getMsg()
-      );
-        console.log(this.userId);
+  constructor(private dataService: DataService, private navService: NavbarService) {
+
+        this.navService.navstate$.subscribe((state: any) => {
+            this.enter();
+          }
+        );
+   }
+
+   enter () {
+     this.lastMsg = 0;
+     this.alertMsg = 'info';
+     this.msg = '';
+     // obter o userId
+     this.userId = this.dataService.getUserId();
+     // obter Lista dos utilizadores
+     this.dataService.getData('users').subscribe(
+       resp => this.utilizadores = resp.json()
+     );
+     // obter conversas
+     this.getMsg();
+     const timer = interval(10000);
+     timer.subscribe(
+       resp => this.getMsg()
+     );
    }
 
   toogle() {
