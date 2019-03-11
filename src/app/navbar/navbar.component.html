@@ -3,11 +3,11 @@
   <a class="navbar-brand" routerLink="/" routerLinkActive="active current">
     <img src='./assets/img/logo_email_xs.png' alt="Gestlifes"/>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
 
       <li class="nav-item" routerLinkActive="active current">
@@ -24,7 +24,7 @@
            <i class="fa fa-user"></i> {{loginName}}</a>     
       </li>
      <li class="nav-item">
-        <a *ngIf="!isLoggedIn()" class="nav-link" routerLink="/login"><i class="fa fa-sign-in"></i> Entrar</a>
+    <!--    <a *ngIf="!isLoggedIn()" class="nav-link" routerLink="/login"><i class="fa fa-sign-in"></i> Entrar</a> -->
         <a *ngIf="isLoggedIn()" class="nav-link" (click)="logout()" routerLink="/login" title="Click para sair">
           <i class="fa fa-sign-out"></i>Sair</a>
       </li>

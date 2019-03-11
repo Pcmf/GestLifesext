@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowDocComponent } from './show-doc/show-doc.component';
 import { MuralComponent } from './mural/mural.component';
 import { DetLeadComponent } from './det-lead/det-lead.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DetLeadComponent } from './det-lead/det-lead.component';
     AnexarDocsComponent,
     ShowDocComponent,
     MuralComponent,
-    DetLeadComponent
+    DetLeadComponent,
+    FilterPipe
   ],
   imports: [
     HttpModule,

@@ -11,7 +11,7 @@ import { NavbarService } from '../navbar.service';
 export class NavbarComponent implements OnDestroy {
   loginName: any;
   private helper = new JwtHelperService;
-
+  public isCollapsed = true;
   constructor(private loginService: DataService, private navService: NavbarService) {
 
     if (sessionStorage.getItem('token') != null) {

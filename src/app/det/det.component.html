@@ -72,10 +72,10 @@
         <div class="input-group mb-3">
           <select class="custom-select" id="inputIRS" name="irs" [(ngModel)]="elem.irs" required>
             <option selected>...</option>
-            <option value="1">Sim</option>
-            <option value="2">Sim Junto</option>
-            <option value="3">Sim Separado</option>
-            <option value="4">Não</option>
+            <option value="Sim">Sim</option>
+            <option value="Sim junto">Sim Junto</option>
+            <option value="Sim separado">Sim Separado</option>
+            <option value="Nao">Não</option>
           </select>
         </div>
       </div>
@@ -93,8 +93,7 @@
       <div class="form-row">
         <div class=" form-group col-md-1">
           <label for="inputConjugue">Conjugue</label>
-          <input type="checkbox" class="form-control" id="inputConjugue" name="isConjugue" [(ngModel)]="isConjugue"
-            [checked]="isConjugue">
+          <input type="checkbox" class="form-control" id="inputConjugue" name="isConjugue" [(ngModel)]="isConjugue" [checked]="isConjugue">
         </div>
         <div class=" form-group col-md-2">
           <label for="inputRelacao">Outra relação</label>
@@ -144,12 +143,11 @@
         <div class=" form-group col-md-3 text-center">
           <label for="inputAddress2">Habitação do 2º Proponente</label>
           <div class="form-check form-check-inline">
-            <input class="form-control" type="checkbox" name="mesmahabitacao2" id="mesmahabitacao" [(ngModel)]="elem.mesmahabitacao"
-              [checked]="elem.mesmahabitacao=='Sim'">
-            <label class="form-check-label" for="mesmahabitacao2">Mesma do 1º</label>
+            <input class="form-control" type="checkbox" name="mesmahabitacao" id="mesmahabitacao" [(ngModel)]="isMesmaHabitacao" [checked]="isMesmaHabitacao">
+            <label class="form-check-label" for="mesmahabitacao">Mesma do 1º</label>
           </div>
         </div>
-        <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
+        <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao">
           <label for="inputHabitacao2">Habitação</label>
           <div class="input-group mb-3">
             <select class="custom-select" id="inputHabitacao2" name="habitacao2" [(ngModel)]="elem.tipohabitacao2">
@@ -158,11 +156,11 @@
             </select>
           </div>
         </div>
-        <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==3)">
+        <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao && (f.value.habitacao2==1 || f.value.habitacao2==3)">
           <label for="inputRenda2">Renda/Prestação</label>
           <input type="number" class="form-control" id="inputRenda2" name="valorhabitacao2" [(ngModel)]="elem.valorhabitacao2" />
         </div>
-        <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==3)">
+        <div class="form-group col-md-2" *ngIf="!f.value.mesmahabitacao && (f.value.habitacao2==1 || f.value.habitacao2==3)">
           <label for="">Declarada</label>
           <div class="input-group">
             <div class="form-check form-check-inline">
@@ -175,7 +173,7 @@
             </div>
           </div>
         </div>
-        <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
+        <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao">
           <label for="inputAnoHabitacao2">Desde</label>
           <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao2" name="anohabitacao2"
             [(ngModel)]="elem.anoiniciohabitacao2">

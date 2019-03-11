@@ -13,6 +13,7 @@ export class DetComponent {
   tiposhabitacao: any = [];
   segundoProponente: boolean;
   isConjugue: boolean;
+  isMesmaHabitacao: boolean;
   OCArr: any = [{}];
   ORArr: any = [{}];
   lead: number;
@@ -43,6 +44,7 @@ export class DetComponent {
              this.elem = resp.json()[0].lead;
              this.elem.parentesco2 ? this.segundoProponente = true : this.segundoProponente = false;
              this.elem.parentesco2 == 'Conjugue' ? this.isConjugue = true : this.isConjugue = false;
+             this.elem.isMesmaHabitacao == 'Sim' ? this.isMesmaHabitacao = true : this.isMesmaHabitacao = false;
 
             this.OCArr = resp.json()[0].oc;
             if (!this.OCArr || this.OCArr.length < 1)  {

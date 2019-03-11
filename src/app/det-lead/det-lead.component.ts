@@ -8,10 +8,11 @@ import { DataService } from '../data.service';
   styleUrls: ['./det-lead.component.css']
 })
 export class DetLeadComponent implements OnInit {
-  lead: number;
-  userId: number;
-  elem: any = [];
-  submissoes: any = [];
+  public lead: number;
+  private userId: number;
+  public elem: any = [];
+  public submissoes: any = [];
+  public rejeicoes = '';
   constructor(private route: ActivatedRoute, private dataService: DataService) {
         this.userId = this.dataService.getUserId();
         // obter o parametro passado no url e os dados da lead
@@ -22,7 +23,10 @@ export class DetLeadComponent implements OnInit {
                (resp: any) => {
                  this.elem = resp.json()[0].lead;
                  this.submissoes = resp.json().submissoes;
-                 console.log(this.submissoes);
+                 const rej = resp.json().rejeicoes;
+                 rej.forEach(ln => {
+                   this.rejeicoes += ln.data + ' -->   ' + ln.motivo + ';   ' + ln.obs + ';  ' + ln.outro + '\n';
+                 });
                }
              );
           }

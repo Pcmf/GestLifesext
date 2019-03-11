@@ -32,7 +32,7 @@ export class ChangeComponent implements OnInit {
 
     this.loginService.changePassDB(this.newData).subscribe(
       resp => {
-        console.log(resp);
+      //  console.log(resp);
         sessionStorage.removeItem('token');
         this.router.navigate(['/login']);
       }

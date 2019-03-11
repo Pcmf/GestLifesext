@@ -71,10 +71,10 @@
         <div class="input-group mb-3">
             <select class="custom-select" id="inputIRS" name="irs" ngModel required>
               <option selected>...</option>
-              <option value="1">Sim</option>
-              <option value="2">Sim Junto</option>
-              <option value="3">Sim Separado</option>
-              <option value="4">Não</option>
+              <option value="Sim">Sim</option>
+              <option value="Sim junto">Sim Junto</option>
+              <option value="Sim separado">Sim Separado</option>
+              <option value="Nao">Não</option>
             </select>
           </div>
       </div>
@@ -185,8 +185,8 @@
             <option selected>...</option>
             <option value="1">Alugada</option>
             <option value="2">Familiares</option>
-            <option value="3">Própria sem CH</option>
-            <option value="4">Própria com CH</option>
+            <option value="3">Própria com CH</option>
+            <option value="4">Própria sem CH</option>
           </select>
         </div>
       </div>
@@ -198,11 +198,11 @@
         <label for="">Declarada</label>
         <div class="input-group">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="declarada" id="declaradasim" value="mesma" ngModel>
+            <input class="form-check-input" type="radio" name="declarada" id="declaradasim" value="Sim" ngModel>
             <label class="form-check-label" for="declaradasim">Sim</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="declarada" id="declaradanao" value="outra" ngModel>
+            <input class="form-check-input" type="radio" name="declarada" id="declaradanao" value="Nao" ngModel>
             <label class="form-check-label" for="declaradanao">Não</label>
           </div>
         </div>

@@ -34,6 +34,10 @@ export class AnexarDocsComponent implements OnInit {
       alert('invalid format');
       return;
     }
+    if ( file.size > 4000000 ) {
+      alert('Ficheiro demasiado grande. Tem que ser inferior a 4Mb');
+      return;
+    }
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
 

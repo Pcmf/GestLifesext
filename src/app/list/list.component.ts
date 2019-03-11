@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
   leads: any = [];
+  search: string;
   constructor(private dataService: DataService, private router: Router) {
 
    }

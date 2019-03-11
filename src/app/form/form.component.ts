@@ -24,10 +24,11 @@ export class FormComponent  {
   }
 
   saveAndAnexa (form) {
-      this.loginService.saveData('leads/' + this.userId, form.value).subscribe(
+    const obj = {'status': 10, 'motivocontacto': 12, 'form': form.value};
+      this.loginService.saveData('leads/' + this.loginService.getUserId(), obj).subscribe(
         (resp: any) => {
           console.log(resp);
-          if  (resp.status === 200) {
+          if  (resp.status === 200 && resp._body !== 'NaN') {
            this.router.navigate(['/anexar/' + +resp._body ]);
            // console.log(resp);
           } else  {

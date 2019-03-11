@@ -7,7 +7,6 @@
     <hr>
       <div class="form-row">
         <div class=" form-group col-md-3">
-          <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode" />
           <label for="inputNome">Nome </label>
           <input type="text" class="form-control form-control-sm" id="inputNome" name="nome" [(ngModel)]="elem.nome" readonly>
         </div>
@@ -68,6 +67,9 @@
         <small *ngIf="elem.sts==23" >Aprovado </small>
         <small class="pull-right">({{elem.datastatus}})</small>
     </h5>
+    <div *ngIf="elem.sts==14" class="form-group">
+      <textarea class="form-control">{{rejeicoes}}</textarea>
+    </div>
     <hr>
     <div class="form-group col-md-3">
       <label>Analista: </label>
