@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-form',
@@ -9,17 +12,26 @@ import { Router } from '@angular/router';
 })
 export class FormComponent  {
   sitfamiliares: any = [];
+  tiposdoc: any = [];
+  nacionalidades: any [];
   fornecedorCode: number;
   private userId: number;
   OCArr: any = [{}];
   ORArr: any = [{}];
 
 
-  constructor(private loginService: DataService, private router: Router) {
+  constructor(private loginService: DataService, private router: Router, private http: HttpClient) {
     this.fornecedorCode = loginService.getFornecedorCode();
+    this.http.get('../../assets/nacionalidades.json').subscribe(
+      (nac: any) => this.nacionalidades = nac
+    );
     this.userId = loginService.getUserId();
     this.loginService.getData('getdata/cnf_sitfamiliar').subscribe(
-      resp => this.sitfamiliares = resp.json()
+      resp => {         this.sitfamiliares = resp;
+        this.loginService.getData('getdata/cnf_tiposdoc').subscribe(
+          resp2 => this.tiposdoc = resp2
+        );
+      }
     );
   }
 

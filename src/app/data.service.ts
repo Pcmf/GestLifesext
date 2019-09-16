@@ -1,5 +1,5 @@
 import { Injectable, Input } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NavbarService } from './navbar.service';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ export class DataService {
   private helper = new JwtHelperService;
   ADDRESS = environment.ADDRESS;
 
-  constructor(private http: Http, private navbarService: NavbarService) { }
+  constructor(private http: HttpClient, private navbarService: NavbarService) { }
 
   /**  */
   getData ( params) {

@@ -10,7 +10,7 @@ import { ListComponent } from './list/list.component';
 import { DetComponent } from './det/det.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DataService } from './data.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ChangeComponent } from './change/change.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AnexarDocsComponent } from './anexar-docs/anexar-docs.component';
@@ -38,7 +38,7 @@ import { FilterPipe } from './filter.pipe';
     FilterPipe
   ],
   imports: [
-    HttpModule,
+    HttpClientModule,
     BrowserModule,
     DataTableModule,
     FormsModule,

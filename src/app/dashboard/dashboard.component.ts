@@ -28,11 +28,11 @@ export class DashboardComponent implements OnInit {
     this.dataService.getData('dashboard/' + this.user).subscribe(
       resp => {
       //  console.log(resp.json());
-        this.submetidos = resp.json()[0].submetidos;
-        this.pendentes = resp.json()[1].pendentes;
-        this.aprovados = resp.json()[2].aprovados;
-        this.financiados = resp.json()[3].financiados;
-        this.recusados = resp.json()[4].recusados;
+        this.submetidos = resp[0].submetidos;
+        this.pendentes = resp[1].pendentes;
+        this.aprovados = resp[2].aprovados;
+        this.financiados = resp[3].financiados;
+        this.recusados = resp[4].recusados;
       }
     );
   }

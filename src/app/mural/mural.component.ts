@@ -40,7 +40,7 @@ export class MuralComponent {
      this.userId = this.dataService.getUserId();
      // obter Lista dos utilizadores
      this.dataService.getData('users').subscribe(
-       resp => this.utilizadores = resp.json()
+       resp => this.utilizadores = resp
      );
      // obter conversas
      this.getMsg();
@@ -63,7 +63,7 @@ export class MuralComponent {
   getMsg () {
     this.dataService.getData('mural/' + this.userId).subscribe(
       resp => {
-        this.conversas = resp.json();
+        this.conversas = resp;
         const actualMsg = this.conversas[this.conversas.length - 1 ].id;
         if (this.lastMsg !== 0 && this.lastMsg !== actualMsg) {
           this.alertMsg = 'warning';

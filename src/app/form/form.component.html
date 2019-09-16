@@ -2,24 +2,65 @@
   <h2 class="text-center text-info">Registo de Novo Cliente</h2>
   <p>&nbsp;</p>
   <form #f="ngForm" (ngSubmit)="saveAndAnexa(f)">
+   <!--  Dados pessoais 1º titular -->
     <div class="form-row">
       <div class=" form-group col-md-3">
         <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode"/>
         <label for="inputNome">Nome *</label>
         <input type="text" class="form-control"  id="inputNome"  name="nome" #nome="ngModel" ngModel required>
       </div>
-      <div class=" form-group col-md-1">
-        <label for="inputIdade">Idade *</label>
-        <input type="number" min="18" max="99" class="form-control" id="inputIdade" name="idade" ngModel required>
+      <div class=" form-group col-md-2">
+        <label for="inputIdade">Data de nascimento *</label>
+        <input type="text" class="form-control" id="datanascimento" name="datanascimento" ngModel required>
       </div>
+      <div class=" form-group col-md-2">
+          <label for="inputNIF">NIF *</label>
+          <input type="number" class="form-control" id="inputNIF" name="nif" ngModel required>
+      </div>
+      <div class=" form-group col-md-2">
+          <label for="inputEstadoCivil">Estado Civil *</label>
+          <div class="input-group mb-3">
+            <select class="custom-select" id="inputEstadoCivil" name="estadocivil" ngModel required>
+              <option selected>...</option>
+              <option *ngFor="let s of sitfamiliares" [value]="s.id">{{s.nome}}</option>
+            </select>
+          </div>
+        </div>
+        <div class=" form-group col-md-1">
+          <label for="inputFilhos">Filhos</label>
+          <input type="number" class="form-control" id="inputFilhos" name="filhos" ngModel>
+        </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Documento Identificação</label>
+        <select class="form-control" name="nacionalidade" ngModel required>
+          <option *ngFor="let td of tiposdoc" [value]="td.id">{{td.nome}}</option>
+        </select>
+      </div>
+      <div class=" form-group col-md-2">
+          <label for="numdoc">Numero documento *</label>
+          <input type="numdoc" class="form-control" id="numdoc" name="numdoc" ngModel required>
+      </div>
+      <div class="form-group col-md-2">
+        <label>Validade</label>
+        <input type="text" class="form-control" name="validade" ngModel required>
+      </div>
+      <div class="form-group col-md-3">
+          <label>Nacionalidade</label>
+          <select class="form-control" name="nacionalidade" ngModel required>
+            <option *ngFor="let n of nacionalidades" [value]="n.nacinalidade">{{n.nacionalidade}}</option>
+          </select>
+        </div>
+    </div>
+    <div class="form-row">
+
       <div class="form-group col-md-2">
         <label for="inputTelefone">Telefone *</label>
         <input type="text" class="form-control" id="inputTelefone" name="telefone" ngModel required>
       </div>
-      <div class=" form-group col-md-2">
-        <label for="inputNIF">NIF *</label>
-        <input type="number" class="form-control" id="inputNIF" name="nif" ngModel required>
-      </div>
+
       <div class=" form-group col-md-4">
         <label for="inputEmail4">Email *</label>
         <input type="email" class="form-control" id="inputEmail4" name="email" ngModel required>
@@ -57,7 +98,7 @@
     </div>
     <!-- Estado civil e IRS-->
     <div class="form-row">
-      <div class=" form-group col-md-2">
+<!--       <div class=" form-group col-md-2">
         <label for="inputEstadoCivil">Estado Civil *</label>
         <div class="input-group mb-3">
           <select class="custom-select" id="inputEstadoCivil" name="estadocivil" ngModel required>
@@ -66,7 +107,7 @@
           </select>
         </div>
       </div>
-      <div class=" form-group col-md-2">
+       <div class=" form-group col-md-2">
         <label for="inputAddress2">IRS *</label>
         <div class="input-group mb-3">
             <select class="custom-select" id="inputIRS" name="irs" ngModel required>
@@ -81,7 +122,7 @@
       <div class=" form-group col-md-1">
         <label for="inputFilhos">Filhos</label>
         <input type="number" class="form-control" id="inputFilhos" name="filhos" ngModel>
-      </div>
+      </div> -->
       <div class=" form-group col-md-2">
         <label for="input2Proponente">Segundo Proponente</label>
         <input class="form-control" type="checkbox" name="segundoProponente" ngModel />

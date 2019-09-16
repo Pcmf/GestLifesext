@@ -73,7 +73,7 @@ export class AnexarDocsComponent implements OnInit {
   loadDados () {
     this.dataService.getData('docs/' + this.lead).subscribe(
       resp => {
-        this.documentos = resp.json();
+        this.documentos = resp;
       }
     );
   }
