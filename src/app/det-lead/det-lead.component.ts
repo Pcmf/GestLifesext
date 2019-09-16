@@ -21,7 +21,7 @@ export class DetLeadComponent implements OnInit {
              this.lead = +param.get('lead');
              this.dataService.getData('leads/' + this.userId + '/' + this.lead ).subscribe(
                (resp: any) => {
-                 this.elem = resp.json()[0].lead;
+                 this.elem = resp.json().lead;
                  this.submissoes = resp.json().submissoes;
                  const rej = resp.json().rejeicoes;
                  rej.forEach(ln => {
