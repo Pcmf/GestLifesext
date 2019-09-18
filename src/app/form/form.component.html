@@ -7,7 +7,7 @@
       <button class="btn btn-info" [class.btn-info]="!primeiroTitular" (click)="primeiroTitular=false">2º Titular</button>
     </div>
     <!--  Dados pessoais 1º titular -->
-    <div class="" *ngIf="primeiroTitular">
+    <div class="" [hidden]="!primeiroTitular">
       <br />
       <label class="text-primary">Dados Pessoais do 1º titular</label>
       <div class="form-row">
@@ -18,7 +18,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputIdade">Data de nascimento *</label>
-          <input type="text" class="form-control" id="datanascimento" placeholder="dd-mm-aaaa" name="datanascimento" ngModel required>
+          <input type="text" class="form-control" id="datanascimento" placeholder="dd-mm-aaaa" mask="d0-M0-0000" name="datanascimento" ngModel required>
         </div>
         <div class=" form-group col-md-2">
           <label for="inputNIF">NIF *</label>
@@ -52,7 +52,7 @@
         </div>
         <div class="form-group col-md-2">
           <label>Validade *</label>
-          <input type="text" class="form-control" name="validade" placeholder="dd-mm-aaaa" ngModel required>
+          <input type="text" class="form-control" name="validade" placeholder="dd-mm-aaaa" mask="d0-M0-0000" ngModel required>
         </div>
         <div class="form-group col-md-3">
           <label>Nacionalidade *</label>
@@ -106,7 +106,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputAnoHabitacao">Desde</label>
-          <input type="number" min="1920" max="2030" class="form-control" placeholder="ano" id="inputAnoHabitacao" name="anohabitacao"
+          <input type="number" min="1920" max="2030" class="form-control" placeholder="ano" id="inputAnoHabitacao" name="anohabitacao" mask="0000"
             ngModel>
         </div>
       </div>
@@ -121,7 +121,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="cpostal">Codigo Postal *</label>
-          <input type="text" class="form-control" id="cpostal" placeholder="xxxx-zzz" name="cpostal" ngModel required>
+          <input type="text" class="form-control" id="cpostal" placeholder="xxxx-zzz" mask="0000-000" name="cpostal" ngModel required>
         </div>
       </div>
 
@@ -157,7 +157,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputAnoInicio">Ano Inicio *</label>
-          <input type="number" min="1960" max="2030" class="form-control" placeholder="ano" id="inputAnoInicio" name="anoinicio" ngModel
+          <input type="number" min="1960" max="2030" class="form-control" placeholder="ano" id="inputAnoInicio" name="anoinicio" mask="0000" ngModel
             required>
         </div>
         <div class=" form-group col-md-2">
@@ -286,7 +286,7 @@
         </div>
         <div class="form-group col-md-2">
           <label>Desde *</label>
-          <input type="number" class="form-control" name="desdeiban" placeholder="ano" ngModel required>
+          <input type="number" class="form-control" name="desdeiban" placeholder="ano" mask="0000" ngModel required>
         </div>
         <div class="form-group col-md-2">
           <label>Dia pagamento</label>
@@ -309,7 +309,7 @@
 
 
     <!-- Segundo proponente-->
-    <div class="" *ngIf="!primeiroTitular">
+    <div class="" [hidden]="primeiroTitular">
 
       <div class=" border border-default">
         <br />
@@ -336,7 +336,8 @@
           </div>
           <div class=" form-group col-md-2">
             <label for="inputIdade2">Data de nascimento *</label>
-            <input type="text" class="form-control" id="datanascimento2" name="datanascimento2" ngModel require="titular2.value==1">
+            <input type="text" class="form-control" id="datanascimento2" name="datanascimento2" placeholder="dd-mm-aaaa" mask="d0-M0-0000"
+             ngModel require="titular2.value==1">
           </div>
           <div class=" form-group col-md-2">
             <label for="inputNIF2">NIF *</label>
@@ -356,7 +357,7 @@
           </div>
           <div class="form-group col-md-2">
             <label>Validade *</label>
-            <input type="text" class="form-control" name="validade2" ngModel required>
+            <input type="text" class="form-control" name="validade2" placeholder="dd-mm-aaaa" mask="d0-M0-0000" ngModel required>
           </div>
           <div class="form-group col-md-3">
             <label>Nacionalidade *</label>
@@ -436,7 +437,7 @@
           </div>
           <div class=" form-group col-md-2">
             <label for="cpostal2">Codigo Postal</label>
-            <input type="text" class="form-control" id="cpostal2" name="cpostal2" ngModel required>
+            <input type="text" class="form-control" id="cpostal2" name="cpostal2" placeholder="xxxx-zzz" mask="0000-000" ngModel required>
           </div>
         </div>
       
@@ -473,7 +474,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputAnoInicio2">Ano Inicio *</label>
-          <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2" ngModel
+          <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2" placeholder="ano" mask="0000" ngModel
             required>
         </div>
         <div class=" form-group col-md-2">
@@ -514,8 +515,8 @@
     </div>
     </div>
     <div class="form row text-center">
-        <button class="btn btn-block btn-info">Guardar</button>
-        <button class="btn btn-block btn-success">Guardar e Submeter</button>
+        <button class="btn btn-block btn-info" (click)="saveForm(f)">Guardar</button>
+        <button class="btn btn-block btn-success" type="submit">Guardar e Submeter</button>
     </div>
   </form>
 

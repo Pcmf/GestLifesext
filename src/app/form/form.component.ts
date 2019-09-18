@@ -40,6 +40,10 @@ export class FormComponent  {
     );
   }
 
+  saveForm(form) {
+    console.log(form.value);
+  }
+
   saveAndAnexa (form) {
     const obj = {'status': 10, 'motivocontacto': 12, 'form': form.value};
       this.loginService.saveData('leads/' + this.loginService.getUserId(), obj).subscribe(

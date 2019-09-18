@@ -20,6 +20,7 @@ import { ShowDocComponent } from './show-doc/show-doc.component';
 import { MuralComponent } from './mural/mural.component';
 import { DetLeadComponent } from './det-lead/det-lead.component';
 import { FilterPipe } from './filter.pipe';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FilterPipe } from './filter.pipe';
     DataTableModule,
     FormsModule,
     NgbModule,
+    NgxMaskModule.forRoot(),
     RouterModule.forRoot([
       {path: 'dash' , component: DashboardComponent, canActivate: [AuthGuardService]},
       {path: 'form' , component: FormComponent, canActivate: [AuthGuardService]},
