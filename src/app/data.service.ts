@@ -15,22 +15,22 @@ export class DataService {
   constructor(private http: HttpClient, private navbarService: NavbarService) { }
 
   /**  */
-  getData ( params) {
+  getData(params) {
     return this.http.get(this.ADDRESS + params);
   }
 
-  saveData (path: string, obj: any) {
+  saveData(path: string, obj: any) {
     return this.http.post(this.ADDRESS + path, JSON.stringify(obj));
     // incluir uma forma de notificar que os dados foram inseridos ou erro
   }
 
-  editData (path: string, obj: any) {
+  editData(path: string, obj: any) {
     return this.http.put(this.ADDRESS + path, JSON.stringify(obj));
     // incluir uma forma de notificar que os dados foram inseridos ou erro
   }
 
-  deleteData (path: string) {
-    return this.http.delete(this.ADDRESS + path );
+  deleteData(path: string) {
+    return this.http.delete(this.ADDRESS + path);
   }
 
   checkuser (credenciais) {
@@ -38,10 +38,10 @@ export class DataService {
         JSON.stringify(credenciais))
         .pipe(
           map((response: any) => {
-         //   console.log(response._body);
-            if ( response._body && this.helper.decodeToken(response._body).tipo === 'GExterno') {
-              sessionStorage.setItem('token', response._body);
-              this.navbarService.setNavState(this.helper.decodeToken(response._body));
+            console.log(response);
+            if ( response && this.helper.decodeToken(response).tipo == 'GExterno') {
+              sessionStorage.setItem('token', response);
+              this.navbarService.setNavState(this.helper.decodeToken(response));
               return true;
             } else {
               return false;
@@ -53,41 +53,41 @@ export class DataService {
 
 
 
- /* logout() {
-    sessionStorage.removeItem('token');
-  } */
+  /* logout() {
+     sessionStorage.removeItem('token');
+   } */
 
   isLoggedIn() {
-      const token = sessionStorage.getItem('token');
-      if ( token && this.helper.isTokenExpired(token)) {
-        return true;
-      } else {
-        return false;
-      }
+    const token = sessionStorage.getItem('token');
+    if (token && this.helper.isTokenExpired(token)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  changePassDB (credenciais) {
-    return this.http.put( this.ADDRESS + 'change',
-       JSON.stringify(credenciais))
-       .pipe(
-         map((response: any) => {
-           if ( response._body ) {
-             sessionStorage.setItem('token', response._body);
-             //
-             this.navbarService.setNavState(this.helper.decodeToken(response._body));
-             return true;
-           } else {
-             return false;
-           }
-         })
-       );
- }
+  changePassDB(credenciais) {
+    return this.http.put(this.ADDRESS + 'change',
+      JSON.stringify(credenciais))
+      .pipe(
+        map((response: any) => {
+          if (response._body) {
+            sessionStorage.setItem('token', response._body);
+            //
+            this.navbarService.setNavState(this.helper.decodeToken(response._body));
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+  }
 
-  getUserId () {
+  getUserId() {
     const helper = new JwtHelperService;
     return helper.decodeToken(sessionStorage.getItem('token')).id;
   }
-  getFornecedorCode () {
+  getFornecedorCode() {
     const helper = new JwtHelperService;
     return helper.decodeToken(sessionStorage.getItem('token')).fornecedor;
   }

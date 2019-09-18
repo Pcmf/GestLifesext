@@ -11,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent  {
+  primeiroTitular = true;
   sitfamiliares: any = [];
+  relacoes: any = [];
   tiposdoc: any = [];
   nacionalidades: any [];
   fornecedorCode: number;
@@ -24,6 +26,9 @@ export class FormComponent  {
     this.fornecedorCode = loginService.getFornecedorCode();
     this.http.get('../../assets/nacionalidades.json').subscribe(
       (nac: any) => this.nacionalidades = nac
+    );
+    this.loginService.getData('getdata/cnf_relacaofamiliar').subscribe(
+      (rel: any) => this.relacoes = rel
     );
     this.userId = loginService.getUserId();
     this.loginService.getData('getdata/cnf_sitfamiliar').subscribe(

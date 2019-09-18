@@ -42,7 +42,7 @@ import { FilterPipe } from './filter.pipe';
     BrowserModule,
     DataTableModule,
     FormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule.forRoot([
       {path: 'dash' , component: DashboardComponent, canActivate: [AuthGuardService]},
       {path: 'form' , component: FormComponent, canActivate: [AuthGuardService]},
