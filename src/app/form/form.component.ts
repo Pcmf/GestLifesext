@@ -11,30 +11,32 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent  {
+  status = 10;
+  motivocontacto = 12;
   primeiroTitular = true;
   sitfamiliares: any = [];
   relacoes: any = [];
   tiposdoc: any = [];
   nacionalidades: any [];
   fornecedorCode: number;
-  private userId: number;
+  userId: number;
   OCArr: any = [{}];
   ORArr: any = [{}];
 
 
-  constructor(private loginService: DataService, private router: Router, private http: HttpClient) {
-    this.fornecedorCode = loginService.getFornecedorCode();
+  constructor(private data: DataService, private router: Router, private http: HttpClient) {
+    this.fornecedorCode = data.getFornecedorCode();
     this.http.get('../../assets/nacionalidades.json').subscribe(
       (nac: any) => this.nacionalidades = nac
     );
-    this.loginService.getData('getdata/cnf_relacaofamiliar').subscribe(
+    this.data.getData('getdata/cnf_relacaofamiliar').subscribe(
       (rel: any) => this.relacoes = rel
     );
-    this.userId = loginService.getUserId();
-    this.loginService.getData('getdata/cnf_sitfamiliar').subscribe(
-      resp => {         this.sitfamiliares = resp;
-        this.loginService.getData('getdata/cnf_tiposdoc').subscribe(
-          resp2 => this.tiposdoc = resp2
+    this.userId = data.getUserId();
+    this.data.getData('getdata/cnf_sitfamiliar').subscribe(
+      (resp: any) => {         this.sitfamiliares = resp;
+        this.data.getData('getdata/cnf_tiposdoc').subscribe(
+          (resp2: any) => this.tiposdoc = resp2
         );
       }
     );
@@ -42,20 +44,17 @@ export class FormComponent  {
 
   saveForm(form) {
     console.log(form.value);
+   // this.data.saveData('')
   }
 
   saveAndAnexa (form) {
-    const obj = {'status': 10, 'motivocontacto': 12, 'form': form.value};
-      this.loginService.saveData('leads/' + this.loginService.getUserId(), obj).subscribe(
-        (resp: any) => {
-          console.log(resp);
-          if  (resp.status === 200 && resp._body !== 'NaN') {
-           this.router.navigate(['/anexar/' + +resp._body ]);
-           // console.log(resp);
-          } else  {
-            alert('Erro nos dados');
-          }
-        }
+      const obj = {
+                  'status': 10,
+                  'motivocontacto': 12,
+                  'form': form.value
+                 };
+      this.data.saveData('processform', obj).subscribe(
+        resp => console.log(resp)
       );
   }
 

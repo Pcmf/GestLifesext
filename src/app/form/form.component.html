@@ -12,7 +12,10 @@
       <label class="text-primary">Dados Pessoais do 1º titular</label>
       <div class="form-row">
         <div class=" form-group col-md-5">
-          <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode" />
+            <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode" />
+            <input type="hidden" name="user" [ngModel]="userId" />
+            <input type="hidden" name="status" [ngModel]="status" />
+            <input type="hidden" name="motivocontacto" [ngModel]="motivocontacto" />
           <label for="inputNome">Nome *</label>
           <input type="text" class="form-control" id="inputNome" name="nome" #nome="ngModel" ngModel required>
         </div>
@@ -42,13 +45,13 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>Documento Identificação *</label>
-          <select class="form-control" name="nacionalidade" ngModel required>
+          <select class="form-control" name="tipodoc" ngModel required>
             <option *ngFor="let td of tiposdoc" [value]="td.id">{{td.nome}}</option>
           </select>
         </div>
         <div class=" form-group col-md-2">
           <label for="numdoc">Numero documento *</label>
-          <input type="text" class="form-control" id="numdoc" name="numdoc" ngModel required>
+          <input type="text" class="form-control" id="numdoc" name="numdocumento" ngModel required>
         </div>
         <div class="form-group col-md-2">
           <label>Validade *</label>
@@ -78,7 +81,7 @@
         <div class=" form-group col-md-2">
           <label for="inputHabitacao">Habitação *</label>
           <div class="input-group mb-3">
-            <select class="custom-select" id="inputHabitacao" name="habitacao" #habitacao ngModel required>
+            <select class="custom-select" id="inputHabitacao" name="tipohabitacao" #habitacao ngModel required>
               <option selected>...</option>
               <option value="1">Alugada</option>
               <option value="2">Familiares</option>
@@ -106,14 +109,14 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputAnoHabitacao">Desde</label>
-          <input type="number" min="1920" max="2030" class="form-control" placeholder="ano" id="inputAnoHabitacao" name="anohabitacao" mask="0000"
+          <input type="number" min="1920" max="2030" class="form-control" placeholder="ano" id="inputAnoHabitacao" name="anoiniciohabitacao"
             ngModel>
         </div>
       </div>
       <div class="form-row">
         <div class=" form-group col-md-6">
           <label for="rua">Morada *</label>
-          <input type="text" class="form-control" id="rua" name="rua" ngModel required>
+          <input type="text" class="form-control" id="rua" name="morada" ngModel required>
         </div>
         <div class=" form-group col-md-4">
           <label for="localidade">Localidade *</label>
@@ -157,7 +160,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputAnoInicio">Ano Inicio *</label>
-          <input type="number" min="1960" max="2030" class="form-control" placeholder="ano" id="inputAnoInicio" name="anoinicio" mask="0000" ngModel
+          <input type="number" min="1960" max="2030" class="form-control" placeholder="ano" id="inputAnoInicio" name="anoinicio" ngModel
             required>
         </div>
         <div class=" form-group col-md-2">
@@ -186,7 +189,7 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="nifempresa">NIF empresa *</label>
-          <input type="number" min="1960" max="2030" class="form-control" id="nifempresa" name="nifempresa" ngModel required>
+          <input type="number" class="form-control" id="nifempresa" name="nifempresa" ngModel required>
         </div>
         <div class=" form-group col-md-2">
           <label for="telefoneempresa">Telefone *</label>
@@ -286,11 +289,11 @@
         </div>
         <div class="form-group col-md-2">
           <label>Desde *</label>
-          <input type="number" class="form-control" name="desdeiban" placeholder="ano" mask="0000" ngModel required>
+          <input type="number" class="form-control" name="desdeiban" placeholder="ano" ngModel required>
         </div>
         <div class="form-group col-md-2">
           <label>Dia pagamento</label>
-          <select class="form-control" name="diapagamento" ng-model>
+          <select class="form-control" name="diapagamento" ngModel>
             <option value="1">1</option>
             <option value="5">5</option>
             <option value="10">10</option>
@@ -325,7 +328,7 @@
       <div class="form-row">      
           <div class=" form-group col-md-3">
             <label for="inputRelacao">Relação familiar</label>
-             <select class="form-control" name="relacaofamiliar" ngModel>
+             <select class="form-control" name="relacaofamiliar" ngModel required="titular2.value==1">
                <option *ngFor="let rf of relacoes" [value]="rf.id">{{rf.descricao}}</option>
              </select>
           </div>
@@ -347,35 +350,35 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Documento Identificação *</label>
-            <select class="form-control" name="nacionalidade2" ngModel required>
+            <select class="form-control" name="tipodoc2" ngModel required="titular2.value==1">
               <option *ngFor="let td of tiposdoc" [value]="td.id">{{td.nome}}</option>
             </select>
           </div>
           <div class=" form-group col-md-2">
             <label for="numdoc2">Numero documento *</label>
-            <input type="text" class="form-control" id="numdoc2" name="numdoc2" ngModel required>
+            <input type="text" class="form-control" id="numdoc2" name="numdocumento2" ngModel required="titular2.value==1">
           </div>
           <div class="form-group col-md-2">
             <label>Validade *</label>
-            <input type="text" class="form-control" name="validade2" placeholder="dd-mm-aaaa" mask="d0-M0-0000" ngModel required>
+            <input type="text" class="form-control" name="validade2" placeholder="dd-mm-aaaa" mask="d0-M0-0000" ngModel required="titular2.value==1">
           </div>
           <div class="form-group col-md-3">
             <label>Nacionalidade *</label>
-            <select class="form-control" name="nacionalidade2" ngModel required>
+            <select class="form-control" name="nacionalidade2" ngModel required="titular2.value==1">
               <option value="portuguesa" selected="">Portuguesa</option>
-              <option *ngFor="let n of nacionalidades" [value]="n.nacinalidade">{{n.nacionalidade}}</option>
+              <option *ngFor="let n of nacionalidades" [value]="n.nacionalidade">{{n.nacionalidade}}</option>
             </select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-2">
             <label for="inputTelefone2">Telefone *</label>
-            <input type="text" class="form-control" id="inputTelefone2" name="telefone2" ngModel required>
+            <input type="text" class="form-control" id="inputTelefone2" name="telefone2" ngModel required="titular2.value==1">
           </div>
 
           <div class=" form-group col-md-4">
             <label for="inputEmail2">Email *</label>
-            <input type="email" class="form-control" id="inputEmail2" name="email2" ngModel required>
+            <input type="email" class="form-control" id="inputEmail2" name="email2" ngModel required="titular2.value==1">
           </div>
         </div>
 
@@ -385,14 +388,14 @@
           <div class=" form-group col-md-3 text-center">
             <label for="inputAddress2">Habitação do 2º Proponente</label>
             <div class="form-check form-check-inline">
-              <input class="form-control" type="checkbox" name="mesmahabitacao2" id="mesmahabitacao2" ngModel>
+              <input class="form-control" type="checkbox" name="mesmahabitacao2" id="mesmahabitacao2" #mesmaHbit="ngModel" ngModel>
               <label class="form-check-label" for="mesmahabitacao2">Mesma do 1º</label>
             </div>
           </div>
           <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
             <label for="inputHabitacao2">Habitação</label>
             <div class="input-group mb-3">
-              <select class="custom-select" id="inputHabitacao2" name="habitacao2" ngModel>
+              <select class="custom-select" id="inputHabitacao2" name="tipohabitacao2" ngModel [required]="titular2.value==1 && !mesmaHabit.value">
                 <option selected>...</option>
                 <option value="1">Alugada</option>
                 <option value="2">Familiares</option>
@@ -404,7 +407,7 @@
           <div class="form-group col-md-2"
             *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==4)">
             <label for="inputRenda2">Renda/Prestação</label>
-            <input type="number" class="form-control" id="inputRenda2" name="valorhabitacao2" ngModel />
+            <input type="number" class="form-control" id="inputRenda2" name="valorhabitacao2" ngModel [required]="titular2.value==1 && !mesmaHabit.value"/>
           </div>
           <div class="form-group col-md-2"
             *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==4)">
@@ -422,22 +425,22 @@
           </div>
           <div class=" form-group col-md-2" *ngIf="!f.value.mesmahabitacao2">
             <label for="inputAnoHabitacao2">Desde</label>
-            <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao2" name="anohabitacao2"
-              ngModel>
+            <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao2" name="anoiniciohabitacao2"
+              ngModel [required]="titular2.value==1 && !mesmaHabit.value">
           </div>
         </div>
         <div class="form-row">
           <div class=" form-group col-md-6">
             <label for="rua2">Morada</label>
-            <input type="text" class="form-control" id="rua2" name="rua2" ngModel required>
+            <input type="text" class="form-control" id="rua2" name="morada2" ngModel required="titular2.value==1 && !mesmaHabit.value">
           </div>
           <div class=" form-group col-md-4">
             <label for="localidade2">Localidade</label>
-            <input type="text" class="form-control" id="localidade2" name="localidade2" ngModel required>
+            <input type="text" class="form-control" id="localidade2" name="localidade2" ngModel required="titular2.value==1 && !mesmaHabit.value">
           </div>
           <div class=" form-group col-md-2">
             <label for="cpostal2">Codigo Postal</label>
-            <input type="text" class="form-control" id="cpostal2" name="cpostal2" placeholder="xxxx-zzz" mask="0000-000" ngModel required>
+            <input type="text" class="form-control" id="cpostal2" name="cpostal2" placeholder="xxxx-zzz" mask="0000-000" ngModel required="titular2.value==1 && !mesmaHabit.value">
           </div>
         </div>
       
@@ -448,7 +451,7 @@
       <div class="form-row">
         <div class=" form-group col-md-3">
           <label for="inputProfissao2">Sector *</label>
-          <select class="form-control" id="inputProfissao2" name="profissao2" ngModel required>
+          <select class="form-control" id="inputProfissao2" name="profissao2" ngModel required="titular2.value==1">
             <option value="privado">Privado</option>
             <option value="publico">Publico</option>
           </select>
@@ -456,7 +459,7 @@
         <div class=" form-group col-md-2">
           <label for="inputTipocontrato2">Tipo Contrato *</label>
           <div class="input-group mb-3">
-            <select class="custom-select" id="inputTipocontrato2" name="tipocontrato2" ngModel required>
+            <select class="custom-select" id="inputTipocontrato2" name="tipocontrato2" ngModel required="titular2.value==1">
               <option selected>...</option>
               <option value="1">Efectivo</option>
               <option value="2">Termo Certo</option>
@@ -470,17 +473,17 @@
         </div>
         <div class=" form-group col-md-2">
           <label for="inputVencimento2">Vencimento *</label>
-          <input type="number" class="form-control" id="inputVencimento2" name="vencimento2" ngModel required>
+          <input type="number" class="form-control" id="inputVencimento2" name="vencimento2" ngModel required="titular2.value==1">
         </div>
         <div class=" form-group col-md-2">
           <label for="inputAnoInicio2">Ano Inicio *</label>
-          <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2" placeholder="ano" mask="0000" ngModel
-            required>
+          <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2" placeholder="ano" ngModel
+            required="titular2.value==1">
         </div>
         <div class=" form-group col-md-2">
           <label for="mesinicio2">Mês Inicio *</label>
           <div class="input-group mb-3">
-            <select class="custom-select" id="mesinicio2" name="mesinicio2" ngModel required>
+            <select class="custom-select" id="mesinicio2" name="mesinicio2" ngModel required="titular2.value==1">
               <option selected>...</option>
               <option value="1">Janeiro</option>
               <option value="2">Fevereiro</option>
@@ -499,16 +502,15 @@
         </div>
         <div class=" form-group col-md-6">
           <label for="nomeempresa2">Nome da empresa *</label>
-          <input type="number" class="form-control" id="nomeempresa2" name="nomeempresa2" ngModel required>
+          <input type="text" class="form-control" id="nomeempresa2" name="nomeempresa2" ngModel required="titular2.value==1">
         </div>
         <div class=" form-group col-md-2">
           <label for="nifempresa2">NIF empresa *</label>
-          <input type="number" min="1960" max="2030" class="form-control" id="nifempresa2" name="nifempresa2" ngModel
-            required>
+          <input type="number" class="form-control" id="nifempresa2" name="nifempresa2" ngModel required="titular2.value==1">
         </div>
         <div class=" form-group col-md-2">
           <label for="telefoneempresa2">Telefone *</label>
-          <input type="number" class="form-control" id="telefoneempresa2" name="telefoneempresa2" ngModel required>
+          <input type="number" class="form-control" id="telefoneempresa2" name="telefoneempresa2" ngModel required="titular2.value==1">
         </div>
       </div>
       </div>
