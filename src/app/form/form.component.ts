@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -10,10 +10,12 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent  {
+export class FormComponent implements OnInit {
+  tf: any = [];
   status = 10;
   motivocontacto = 12;
   primeiroTitular = true;
+  mesmaHabit = false;
   sitfamiliares: any = [];
   relacoes: any = [];
   tiposdoc: any = [];
@@ -23,8 +25,16 @@ export class FormComponent  {
   OCArr: any = [{}];
   ORArr: any = [{}];
 
+  ngOnInit () {
+    if (sessionStorage.tempForm) {
+      this.tf = JSON.parse(sessionStorage.tempForm);
+      this.OCArr = JSON.parse(sessionStorage.tempOC);
+      this.ORArr = JSON.parse(sessionStorage.tempOR);
+    }
+  }
 
   constructor(private data: DataService, private router: Router, private http: HttpClient) {
+
     this.fornecedorCode = data.getFornecedorCode();
     this.http.get('../../assets/nacionalidades.json').subscribe(
       (nac: any) => this.nacionalidades = nac
@@ -43,8 +53,12 @@ export class FormComponent  {
   }
 
   saveForm(form) {
-    console.log(form.value);
-   // this.data.saveData('')
+    sessionStorage.tempForm = JSON.stringify(form.value);
+    
+    
+    sessionStorage.tempOC = JSON.stringify(this.OCArr);
+    sessionStorage.tempOR = JSON.stringify(this.ORArr);
+    alert('Dados guardados temporariamente!');
   }
 
   saveAndAnexa (form) {
@@ -54,8 +68,19 @@ export class FormComponent  {
                   'form': form.value
                  };
       this.data.saveData('processform', obj).subscribe(
-        resp => console.log(resp)
+        resp => {
+          console.log(resp);
+          alert('Foi criada e submetida para analise uma lead com numero ' + resp );
+          sessionStorage.tempForm = '';
+          this.router.navigate(['/']);
+        }
       );
+
+  }
+
+  goTo2Titular (form) {
+    sessionStorage.tempForm = JSON.stringify(form.value);
+    this.primeiroTitular = false;
   }
 
   cancelar () {
@@ -74,5 +99,9 @@ export class FormComponent  {
   }
   removeLineOutrosRendimentos (i) {
     this.ORArr.splice(i, 1);
+  }
+
+  back() {
+    this.router.navigate(['/']);
   }
 }

@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.dataService.getData('leads/' + this.dataService.getUserId()).subscribe(
       (resp: any) => {
-        this.leads = resp.json();
+        this.leads = resp;
       }
     );
   }

@@ -21,6 +21,7 @@ import { MuralComponent } from './mural/mural.component';
 import { DetLeadComponent } from './det-lead/det-lead.component';
 import { FilterPipe } from './filter.pipe';
 import { NgxMaskModule } from 'ngx-mask';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { NgxMaskModule } from 'ngx-mask';
       {path: '**' , component: DashboardComponent, canActivate: [AuthGuardService]}
     ])
   ],
-  providers: [DataService],
+  providers: [DataService, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

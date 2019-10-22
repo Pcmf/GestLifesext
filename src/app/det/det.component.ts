@@ -1,91 +1,120 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-det',
   templateUrl: './det.component.html',
   styleUrls: ['./det.component.css']
 })
-export class DetComponent {
-  sitfamiliares: any =  [];
-  sitprofissionais: any = [];
-  tiposhabitacao: any = [];
-  segundoProponente: boolean;
-  isConjugue: boolean;
-  isMesmaHabitacao: boolean;
+export class DetComponent implements OnInit {
+  tf: any = [];
+  status = 10;
+  motivocontacto = 12;
+  primeiroTitular = true;
+  mesmaHabit = false;
+  sitfamiliares: any = [];
+  relacoes: any = [];
+  tiposdoc: any = [];
+  nacionalidades: any[];
+  fornecedorCode: number;
+  userId: number;
   OCArr: any = [{}];
   ORArr: any = [{}];
-  lead: number;
-  elem: any = [];
-  fornecedorCode: number;
-  private userId: number;
+  private id: number;
 
-  constructor(private route: ActivatedRoute, private dataService: DataService, private router: Router) {
-    this.userId = this.dataService.getUserId();
-    // Obter os estados civis
-    this.dataService.getData('getdata/cnf_sitfamiliar').subscribe(
-      resp => this.sitfamiliares = resp
-    );
-    // Obter as situações profissionais
-    this.dataService.getData('getdata/cnf_sitprofissional').subscribe(
-      resp => this.sitprofissionais = resp
-    );
-    // Obter os tipos de habitacao
-    this.dataService.getData('getdata/cnf_tipohabitacao').subscribe(
-      resp => this.tiposhabitacao = resp
-    );
-    // obter o parametro passado no url e os dados da lead
+  ngOnInit() {
+    if (sessionStorage.tempForm) {
+      this.tf = JSON.parse(sessionStorage.tempForm);
+    }
+  }
+
+  constructor(private data: DataService, private router: Router, private http: HttpClient, private route: ActivatedRoute) {
+    // Obter a lead
     this.route.paramMap.subscribe(
-      param => {
-         this.lead = +param.get('lead');
-         this.dataService.getData('leads/' + this.userId + '/' + this.lead ).subscribe(
-           (resp: any) => {
-             this.elem = resp[0].lead;
-             this.elem.parentesco2 ? this.segundoProponente = true : this.segundoProponente = false;
-             this.elem.parentesco2 == 'Conjugue' ? this.isConjugue = true : this.isConjugue = false;
-             this.elem.isMesmaHabitacao == 'Sim' ? this.isMesmaHabitacao = true : this.isMesmaHabitacao = false;
+      (params: any) => {
+        this.id = params.get('lead');
+        console.log('Lead: ' + this.id);
 
-            this.OCArr = resp[0].oc;
-            if (!this.OCArr || this.OCArr.length < 1)  {
-              this.OCArr = [];
-              this.addLineOutrosCreditos();
-            }
-            this.ORArr = resp[0].or;
-            if (!this.ORArr || this.ORArr.length < 1) {
-              this.ORArr = [];
-              this.addLineOutrosRendimentos();
-            }
-           }
-         );
-      }
-    );
-   }
+        this.data.getData('processform/' + this.id).subscribe(
+          (resp: any) => {
+            this.tf = resp.process;
+            this.ORArr = resp.or;
+            this.OCArr = resp.oc;
+            console.log(this.OCArr[1]['tipocredito']);
 
-  editar (form) {
-    this.dataService.editData('upleads/' + this.lead, form.value).subscribe(
-      (resp: any) => {
-        if  (resp.status === 200) {
-         this.router.navigate(['/anexar/' + this.lead ]);
-        } else  {
-          alert('Erro nos dados');
-        }
+            //
+            this.fornecedorCode = data.getFornecedorCode();
+            this.http.get('../../assets/nacionalidades.json').subscribe(
+              (nac: any) => this.nacionalidades = nac
+            );
+            this.data.getData('getdata/cnf_relacaofamiliar').subscribe(
+              (rel: any) => this.relacoes = rel
+            );
+            this.userId = data.getUserId();
+            this.data.getData('getdata/cnf_sitfamiliar').subscribe(
+              (resp1: any) => {
+              this.sitfamiliares = resp1;
+                this.data.getData('getdata/cnf_tiposdoc').subscribe(
+                  (resp2: any) => this.tiposdoc = resp2
+                );
+              }
+            );
+          }
+        );
       }
     );
   }
 
-    // Outros creditos
-    addLineOutrosCreditos () {
-      this.OCArr.push({});
-    }
-    removeLineOutrosCreditos (i) {
-      this.OCArr.splice(i, 1);
-    }
-    // Outros rendimentos
-    addLineOutrosRendimentos () {
-      this.ORArr.push({});
-    }
-    removeLineOutrosRendimentos (i) {
-      this.ORArr.splice(i, 1);
-    }
+  saveForm(form) {
+    sessionStorage.tempForm = JSON.stringify(form.value);
+    alert('Dados guardados temporariamente!');
+  }
+
+  saveAndAnexa(form) {
+    const obj = {
+      'status': 10,
+      'motivocontacto': 12,
+      'form': form.value
+    };
+    this.data.saveData('processform', obj).subscribe(
+      resp => {
+        console.log(resp);
+        alert('Foi criada e submetida para analise uma lead com numero ' + resp);
+        sessionStorage.tempForm = '';
+        this.router.navigate(['/']);
+      }
+    );
+
+  }
+
+  goTo2Titular(form) {
+    sessionStorage.tempForm = JSON.stringify(form.value);
+    this.primeiroTitular = false;
+  }
+
+  cancelar() {
+    this.router.navigate(['/']);
+  }
+  // Outros creditos
+  addLineOutrosCreditos() {
+    this.OCArr.push({});
+  }
+  removeLineOutrosCreditos(i) {
+    this.OCArr.splice(i, 1);
+  }
+  // Outros rendimentos
+  addLineOutrosRendimentos() {
+    this.ORArr.push({});
+  }
+  removeLineOutrosRendimentos(i) {
+    this.ORArr.splice(i, 1);
+  }
+
+  back() {
+    this.router.navigate(['/']);
+  }
 }
