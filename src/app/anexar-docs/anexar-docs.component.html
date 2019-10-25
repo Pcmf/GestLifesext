@@ -22,7 +22,7 @@
             <td>
               <div *ngIf="d.recebido!=1" class="file-upload">
                   <input type="hidden" name="H{{d.sigla}}">
-                  <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel (change)="handleInputChange($event, d.id )" />
+                  <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel (change)="handleInputChange($event, d.tipodoc )" />
               </div>
               <button *ngIf="d.recebido==1" type="button" class="btn btn-outline-danger pull-right" (click)="deleteDoc(d)" title="Remover documento"><i class="fa fa-times"></i></button>
             </td>
@@ -39,6 +39,7 @@
       </table>
       <div class="text-center">
         <button type="button" class="btn btn-outline-info col-2" onclick="history.back(-1)">Voltar</button>        
+        <button type="button" class="btn btn-outline-success col-2" (click)="sendToAnalise()">Enviar para Analise</button>        
       </div>
     </div>
   </div>

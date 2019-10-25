@@ -11,15 +11,18 @@ export class ListComponent implements OnInit {
   leads: any = [];
   search: string;
   constructor(private dataService: DataService, private router: Router) {
-
+    this.dataService.getData('leads/' + this.dataService.getUserId()).subscribe(
+      (resp: any []) => {
+        // inverter a lista
+        const size = resp.length - 1;
+        for (let i = 0; i < size; i++ ) {
+          this.leads.push(resp.pop());
+        }
+      }
+    );
    }
 
   ngOnInit() {
-    this.dataService.getData('leads/' + this.dataService.getUserId()).subscribe(
-      (resp: any) => {
-        this.leads = resp;
-      }
-    );
   }
 
   anexarDoc (lead: number) {

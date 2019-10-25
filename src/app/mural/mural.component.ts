@@ -23,11 +23,14 @@ export class MuralComponent {
   visible = 'not-visible';
   msg: string;
   lastMsg: number;
-
+  private timer = interval(30000);
   constructor(private dataService: DataService, private navService: NavbarService) {
 
         this.navService.navstate$.subscribe((state: any) => {
             this.enter();
+            this.timer.subscribe(
+              resp => this.getMsg()
+            );
           }
         );
    }
@@ -44,10 +47,6 @@ export class MuralComponent {
      );
      // obter conversas
      this.getMsg();
-     const timer = interval(10000);
-     timer.subscribe(
-       resp => this.getMsg()
-     );
    }
 
   toogle() {
@@ -61,7 +60,7 @@ export class MuralComponent {
   }
 
   getMsg () {
-    this.dataService.getData('mural/' + this.userId).subscribe(
+    this.dataService.getData('mural/' + this.dataService.getUserId()).subscribe(
       resp => {
         this.conversas = resp;
         const actualMsg = this.conversas[this.conversas.length - 1 ].id;

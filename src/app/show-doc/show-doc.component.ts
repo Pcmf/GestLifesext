@@ -26,7 +26,7 @@ export class ShowDocComponent {
         this.linha = +param.get('linha');
         this.dataService.getData('doc/' + this.lead + '/' + this.linha).subscribe(
           (resp: any) => {
-            const document = resp.json()[0];
+            const document = resp[0];
             this.fxNome = document.nomedoc;
             this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + document.fx64);
           }

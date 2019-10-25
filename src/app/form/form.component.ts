@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
   ORArr: any = [{}];
 
   ngOnInit () {
-    if (sessionStorage.tempForm) {
+    if (sessionStorage.tempForm !== 'undefined') {
       this.tf = JSON.parse(sessionStorage.tempForm);
       this.OCArr = JSON.parse(sessionStorage.tempOC);
       this.ORArr = JSON.parse(sessionStorage.tempOR);
@@ -52,10 +52,14 @@ export class FormComponent implements OnInit {
     );
   }
 
+  opcaoSegundoTitular(opc, form) {
+    if (opc == 1) {
+      this.goTo2Titular(form);
+    }
+  }
+
   saveForm(form) {
     sessionStorage.tempForm = JSON.stringify(form.value);
-    
-    
     sessionStorage.tempOC = JSON.stringify(this.OCArr);
     sessionStorage.tempOR = JSON.stringify(this.ORArr);
     alert('Dados guardados temporariamente!');
@@ -63,16 +67,21 @@ export class FormComponent implements OnInit {
 
   saveAndAnexa (form) {
       const obj = {
-                  'status': 10,
+                  'status': 8,
                   'motivocontacto': 12,
                   'form': form.value
                  };
       this.data.saveData('processform', obj).subscribe(
-        resp => {
+        (resp: any) => {
           console.log(resp);
-          alert('Foi criada e submetida para analise uma lead com numero ' + resp );
-          sessionStorage.tempForm = '';
-          this.router.navigate(['/']);
+          if (Number.isInteger(+resp)) {
+           // alert('Foi criada uma lead com numero ' + resp );
+            this.clearTempForm();
+            this.router.navigate(['/anexar/' + resp]);
+          } else {
+            alert('Houve um erro ao guardar o processo.\n Verifique os dados introduzidos e tente outra vez.');
+          }
+
         }
       );
 
@@ -101,7 +110,20 @@ export class FormComponent implements OnInit {
     this.ORArr.splice(i, 1);
   }
 
+  limparForm() {
+    this.tf = {};
+/*     this.OCArr = {};
+    this.ORArr = {}; */
+    this.clearTempForm();
+  }
+
   back() {
     this.router.navigate(['/']);
+  }
+
+  private clearTempForm() {
+    sessionStorage.removeItem('tempForm');
+    sessionStorage.removeItem('tempOC');
+    sessionStorage.removeItem('tempOR');
   }
 }

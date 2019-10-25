@@ -37,7 +37,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     ShowDocComponent,
     MuralComponent,
     DetLeadComponent,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     HttpClientModule,
@@ -57,7 +57,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
       {path: 'login' , component: LoginComponent},
       {path: 'change' , component: ChangeComponent, canActivate: [AuthGuardService]},
       {path: '**' , component: DashboardComponent, canActivate: [AuthGuardService]}
-    ])
+    ], {scrollPositionRestoration: 'enabled'})
   ],
   providers: [DataService, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

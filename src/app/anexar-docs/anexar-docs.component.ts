@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AnexarDocsComponent implements OnInit {
   documentos: any = [];
-  private indice: number;
+  private tipodoc: number;
   private filename: string;
   lead: number;
 
@@ -19,13 +19,16 @@ export class AnexarDocsComponent implements OnInit {
     this.route.paramMap.subscribe(
       param => {
         this.lead = +param.get('lead');
-        this.loadDados();
+        this.dataService.getData('docsnec/' + this.lead).subscribe(
+          resp => this.documentos = resp
+        );
       }
     );
   }
 
   handleInputChange(e, id) {
-    this.indice = id;
+    console.log(id);
+    this.tipodoc = id;
     const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.filename = file.name;
     const pattern = /pdf-*/;
@@ -45,22 +48,34 @@ export class AnexarDocsComponent implements OnInit {
   _handleReaderLoaded(e) {
     const reader = e.target;
     const obj: any = {};
-    obj.id = this.indice;
+    obj.id = this.tipodoc;
     obj.nomefx = this.filename;
     obj.base64 = reader.result;
-    this.dataService.saveData('savedocs/' + this.lead, obj)
+    this.dataService.editData('savedocs/' + this.lead, obj)
       .subscribe( resp => {
-        if (resp) {
+        if (!resp) {
           this.loadDados();
+        } else {
+          alert('Erro');
+          console.log(resp);
         }
       });
   }
 
+  sendToAnalise() {
+    const obj =  {lead: this.lead, status: 10};
+    this.dataService.editData('upstatus/' + this.lead + '/10', obj).subscribe(
+      resp => {
+        alert('Enviado para analise');
+        this.router.navigate(['/']);
+      }
+    )
+  }
 
 
   deleteDoc (doc) {
     console.log(doc);
-    this.dataService.deleteData('docs/' + this.lead + '/' + doc.id).subscribe(
+    this.dataService.deleteData('doc/' + this.lead + '/' + doc.linha).subscribe(
       resp0 => this.loadDados()
     );
   }
@@ -71,7 +86,7 @@ export class AnexarDocsComponent implements OnInit {
   }
 
   loadDados () {
-    this.dataService.getData('docs/' + this.lead).subscribe(
+    this.dataService.getData('docsp/' + this.lead).subscribe(
       resp => {
         this.documentos = resp;
       }
