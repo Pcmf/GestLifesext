@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
-import { NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
 import { interval } from 'rxjs';
 import { NavbarService } from '../navbar.service';
-import { enterView } from '@angular/core/src/render3/state';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-mural',
   templateUrl: './mural.component.html',
   styleUrls: ['./mural.component.css'],
 })
 export class MuralComponent {
+  private helper = new JwtHelperService;
   muralClass = 'mural-c';
   btnClass = 'mb-c';
   accoes = 'accoes-c';
@@ -25,29 +25,42 @@ export class MuralComponent {
   lastMsg: number;
   private timer = interval(30000);
   constructor(private dataService: DataService, private navService: NavbarService) {
+    this.navService.navstate$.subscribe((state: any) => {
+      this.lastMsg = 0;
+      this.alertMsg = 'info';
+      this.msg = '';
+      this.userId = this.dataService.getUserId();
+      this.timer.subscribe(
+        resp => this.getMsg()
+      );
+      });
+    // obter Lista dos utilizadores
+    this.dataService.getData('users').subscribe(
+      resp => this.utilizadores = resp
+    );
 
-        this.navService.navstate$.subscribe((state: any) => {
-            this.enter();
-            this.timer.subscribe(
-              resp => this.getMsg()
-            );
-          }
-        );
-   }
+    this.timer.subscribe(
+      resp => this.getMsg()
+    );
 
-   enter () {
-     this.lastMsg = 0;
-     this.alertMsg = 'info';
-     this.msg = '';
-     // obter o userId
-     this.userId = this.dataService.getUserId();
-     // obter Lista dos utilizadores
-     this.dataService.getData('users').subscribe(
-       resp => this.utilizadores = resp
-     );
-     // obter conversas
-     this.getMsg();
-   }
+  }
+
+  isLoggedIn() {
+    const token = sessionStorage.getItem('token');
+    if (token && this.helper.isTokenExpired(token)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  enter() {
+    // obter o userId
+    
+
+    // obter conversas
+    this.getMsg();
+  }
 
   toogle() {
     this.getMsg();
@@ -59,32 +72,35 @@ export class MuralComponent {
     this.alertMsg = 'info';
   }
 
-  getMsg () {
+  getMsg() {
     this.dataService.getData('mural/' + this.dataService.getUserId()).subscribe(
       resp => {
-        this.conversas = resp;
-        const actualMsg = this.conversas[this.conversas.length - 1 ].id;
-        if (this.lastMsg !== 0 && this.lastMsg !== actualMsg) {
-          this.alertMsg = 'warning';
+        if (resp != 'undefined' && resp) {
+          this.conversas = resp;
+          const actualMsg = this.conversas[this.conversas.length - 1].id;
+          if (this.lastMsg !== 0 && this.lastMsg !== actualMsg) {
+            this.alertMsg = 'warning';
+          }
+          this.lastMsg = actualMsg;
         }
-        this.lastMsg = actualMsg;
+
       }
     );
   }
 
-  selectDestino  (conv) {
+  selectDestino(conv) {
     if (!this.clicked || this.clicked !== conv.id) {
       this.clicked = conv.id;
       conv.origem !== this.userId ? this.destino = conv.origem : this.destino = conv.destino;
     } else {
-        this.clicked = 0;
-        this.destino = 0;
+      this.clicked = 0;
+      this.destino = 0;
     }
   }
 
-  enviarPara (destino, f) {
+  enviarPara(destino, f) {
     this.msg = '';
-    const obj = {'origem': this.userId, 'destino': destino, 'assunto': f.msg };
+    const obj = { 'origem': this.userId, 'destino': destino, 'assunto': f.msg };
     this.dataService.saveData('mural', obj).subscribe(
       resp => {
         this.msg = '';

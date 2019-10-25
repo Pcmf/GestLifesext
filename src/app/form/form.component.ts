@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
   ORArr: any = [{}];
 
   ngOnInit () {
-    if (sessionStorage.tempForm !== 'undefined') {
+    if (sessionStorage.tempForm !== 'undefined' && sessionStorage.tempForm) {
       this.tf = JSON.parse(sessionStorage.tempForm);
       this.OCArr = JSON.parse(sessionStorage.tempOC);
       this.ORArr = JSON.parse(sessionStorage.tempOR);
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
   constructor(private data: DataService, private router: Router, private http: HttpClient) {
 
     this.fornecedorCode = data.getFornecedorCode();
-    this.http.get('../../assets/nacionalidades.json').subscribe(
+    this.http.get('./assets/nacionalidades.json').subscribe(
       (nac: any) => this.nacionalidades = nac
     );
     this.data.getData('getdata/cnf_relacaofamiliar').subscribe(

@@ -1,4 +1,4 @@
-<button class="btn btn-sm btn-{{alertMsg}} {{btnClass}}" (click)=toogle()>{{txtButton}}</button>
+<button *ngIf="isLoggedIn()" class="btn btn-sm btn-{{alertMsg}} {{btnClass}}" (click)=toogle()>{{txtButton}}</button>
 <div class="{{muralClass}}">
     <div class="painel"  #scrollMe [scrollTop]="scrollMe.scrollHeight" >
         <!-- Bloco de conversa -->
