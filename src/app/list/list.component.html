@@ -41,7 +41,7 @@
           <td>{{ld.datastatus}}</td>
           <td>
               <button class="btn btn-outline-info" (click)="anexarDoc(ld.lead)" title="Anexar documentação"><i class="fa fa-upload"></i></button>
-              <a class="btn btn-outline-primary" routerLink="/det/{{ld.lead}}" title="Editar"><i class="fa fa-pencil"></i></a>
+              <a class="btn btn-outline-primary" [routerLink]="['/form/' + ld.lead]" title="Ver dados"><i class="fa fa-eye"></i></a>
           </td>
         </tr>
       </tbody>

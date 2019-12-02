@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class FormComponent implements OnInit {
   tf: any = [];
   status = 10;
+  titulo: string;
   motivocontacto = 12;
   primeiroTitular = true;
   mesmaHabit = false;
@@ -24,17 +25,12 @@ export class FormComponent implements OnInit {
   userId: number;
   OCArr: any = [{}];
   ORArr: any = [{}];
+  edit = false;
+  p_lead: number;
 
-  ngOnInit () {
-    if (sessionStorage.tempForm !== 'undefined' && sessionStorage.tempForm) {
-      this.tf = JSON.parse(sessionStorage.tempForm);
-      this.OCArr = JSON.parse(sessionStorage.tempOC);
-      this.ORArr = JSON.parse(sessionStorage.tempOR);
-    }
-  }
 
-  constructor(private data: DataService, private router: Router, private http: HttpClient) {
 
+  constructor(private data: DataService, private router: Router, private http: HttpClient, private route: ActivatedRoute) {
     this.fornecedorCode = data.getFornecedorCode();
     this.http.get('./assets/nacionalidades.json').subscribe(
       (nac: any) => this.nacionalidades = nac
@@ -50,6 +46,50 @@ export class FormComponent implements OnInit {
         );
       }
     );
+    // Verificar se tem parametro no route
+    this.route.paramMap.subscribe(
+      param => {
+        this.p_lead = +param.get('lead');
+        if (this.p_lead) {
+          this.edit = true;
+          this.titulo = 'Dados do Cliente ' + this.p_lead;
+          // Obter os dados do processo
+          this.data.getData('processform/' + this.p_lead).subscribe(
+            (dados: any) => {
+              this.tf = dados.process;
+              this.tf.profissao = this.tf.sector;
+              this.tf.anoinicio = this.tf.desde;
+              this.tf.mesinicio = this.tf.desdemes;
+              this.tf.profissao2 = this.tf.sector2;
+              this.tf.anoinicio2 = this.tf.desde2;
+              this.tf.mesinicio2 = this.tf.desdemes2;
+              this.tf.cpostal = this.tf.cp;
+              this.tf.cpostal2 = this.tf.cp2;
+              this.tf.desdeiban = this.tf.ibandesde;
+              this.OCArr = dados.oc;
+              this.ORArr = dados.or;
+            }
+          );
+        } else {
+          console.log('Sem parametro');
+          this.edit = false;
+          this.titulo = 'Registo de Novo cliente';
+
+          if (sessionStorage.tempForm !== 'undefined' && sessionStorage.tempForm) {
+            this.tf = JSON.parse(sessionStorage.tempForm);
+            this.OCArr = JSON.parse(sessionStorage.tempOC);
+            this.ORArr = JSON.parse(sessionStorage.tempOR);
+          }
+        }
+      }
+    );
+
+
+
+  }
+
+  ngOnInit () {
+
   }
 
   opcaoSegundoTitular(opc, form) {
@@ -87,6 +127,7 @@ export class FormComponent implements OnInit {
 
   }
 
+
   goTo2Titular (form) {
     sessionStorage.tempForm = JSON.stringify(form.value);
     this.primeiroTitular = false;
@@ -118,7 +159,7 @@ export class FormComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/list']);
   }
 
   private clearTempForm() {

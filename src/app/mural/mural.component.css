@@ -2,16 +2,17 @@
 /* MURAL */
 .mb-c{
     transition: all .5s;
-    position: absolute;
+    position: fixed;
     top: 160px;
     right: 0px;
     width: 30px;
     height: 30px;
-    z-index: 900     
+    z-index: 900;
+
 }
 .mb-o {
     transition: all .5s;
-    position: absolute;
+    position: fixed;
     top: 160px;
     right: 340px;
     width: 30px;
@@ -20,7 +21,7 @@
 }
 .mural-c {
     transition: all .5s;
-    position: absolute;
+    position: fixed;
     top: 160px;
     right: 0px;
     width: 0px;
@@ -30,7 +31,7 @@
 }
 .mural-o {
     transition: all .5s;
-    position: absolute;
+    position: fixed;
     top: 160px;
     right: 0px;
     width: 340px;

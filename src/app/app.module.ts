@@ -22,6 +22,7 @@ import { DetLeadComponent } from './det-lead/det-lead.component';
 import { FilterPipe } from './filter.pipe';
 import { NgxMaskModule } from 'ngx-mask';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { SimulaComponent } from './simula/simula.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     MuralComponent,
     DetLeadComponent,
     FilterPipe,
+    SimulaComponent,
   ],
   imports: [
     HttpClientModule,
@@ -48,6 +50,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     NgxMaskModule.forRoot(),
     RouterModule.forRoot([
       {path: 'dash' , component: DashboardComponent, canActivate: [AuthGuardService]},
+      {path: 'form/:lead' , component: FormComponent, canActivate: [AuthGuardService]},
       {path: 'form' , component: FormComponent, canActivate: [AuthGuardService]},
       {path: 'anexar/:lead' , component: AnexarDocsComponent, canActivate: [AuthGuardService]},
       {path: 'list' , component: ListComponent, canActivate: [AuthGuardService]},

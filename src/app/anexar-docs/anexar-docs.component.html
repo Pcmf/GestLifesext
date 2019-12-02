@@ -11,7 +11,7 @@
             <th>Sigla</th>
             <th>Documento</th>
             <th>Descrição</th>
-            <th colspan="2">Ações</th>
+            <th colspan="3">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -21,28 +21,36 @@
             <td>{{d.descricao}}</td>
             <td>
               <div *ngIf="d.recebido!=1" class="file-upload">
-                  <input type="hidden" name="H{{d.sigla}}">
-                  <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel (change)="handleInputChange($event, d.tipodoc )" />
+                <input type="hidden" name="H{{d.sigla}}">
+                <input name="{{d.sigla}}" type="file" accept="pdf/*" ngModel
+                  (change)="handleInputChange($event, d.tipodoc )" />
               </div>
-              <button *ngIf="d.recebido==1" type="button" class="btn btn-outline-danger pull-right" (click)="deleteDoc(d)" title="Remover documento"><i class="fa fa-times"></i></button>
+              <button *ngIf="d.recebido==1" type="button" class="btn btn-outline-danger pull-right"
+                (click)="deleteDoc(d)" title="Remover documento"><i class="fa fa-times"></i></button>
             </td>
             <td>
-              <a *ngIf="d.recebido==1"  class="btn btn-outline-success"
-                       [routerLink]="['/showdoc', lead , d.linha]"
-                       title="Ver documento" >  
-                       <i class="fa fa-eye"></i>
-            </a>
-
-            </td>       
+              <a *ngIf="d.recebido==1" class="btn btn-outline-success" [routerLink]="['/showdoc', lead , d.linha]"
+                title="Ver documento">
+                <i class="fa fa-eye"></i>
+              </a>
+            </td>
+            <td>
+              <a *ngIf="d.recebido==1" class="btn btn-outline-info" [routerLink]="['/adddoc', lead , d.linha]"
+                title="Adicionar outro">
+                <i class="fa fa-plus"></i>
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
+
       <div class="text-center">
-        <button type="button" class="btn btn-outline-info col-2" onclick="history.back(-1)">Voltar</button>        
-        <button type="button" class="btn btn-outline-success col-2" (click)="sendToAnalise()">Enviar para Analise</button>        
+        <button type="button" class="btn btn-outline-info col-2" onclick="history.back(-1)">Voltar</button>
+        <button type="button" class="btn btn-outline-warning col-3" (click)="addExtraDoc()">Adicionar Documento
+          Extra</button>
+        <button type="button" class="btn btn-outline-success col-2" (click)="sendToAnalise()">Enviar para
+          Analise</button>
       </div>
     </div>
   </div>
 </div>
-
-

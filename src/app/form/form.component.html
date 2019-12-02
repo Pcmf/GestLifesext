@@ -1,5 +1,7 @@
-<div class="container" style="background-color: lightgrey">
-  <h2 class="text-center text-info">Registo de Novo Cliente</h2>
+<app-simula></app-simula>
+
+<div class="container">
+  <h2 class="text-center text-info">{{titulo}}</h2>
   <p>&nbsp;</p>
   <form #f="ngForm" (ngSubmit)="saveAndAnexa(f)">
     <div class="form-row">
@@ -12,7 +14,7 @@
       <br />
       <label class="text-primary">Dados Pessoais do 1º titular</label>
       <div class="form-row">
-        <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode" />
+        <input type="hidden" name="fornecedor" [ngModel]="fornecedorCode"/>
         <input type="hidden" name="user" [ngModel]="userId" />
         <input type="hidden" name="status" [ngModel]="status" />
         <input type="hidden" name="motivocontacto" [ngModel]="motivocontacto" />
@@ -20,27 +22,27 @@
         <div class=" form-group col-md-5">
           <label for="inputNome">Nome *</label>
           <input type="text" class="form-control" id="inputNome" name="nome" #nome="ngModel" [ngModel]="tf.nome"
-            required>
+            required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!nome.valid && nome.touched">Obrigatório</div>
         </div>
         <!-- DATA NASCIMENTO -->
         <div class=" form-group col-md-2">
           <label for="inputIdade">Data de nascimento *</label>
           <input type="text" class="form-control" id="datanascimento" placeholder="dd-mm-aaaa" mask="d0-M0-0000"
-            name="datanascimento" #datanascimento="ngModel" [ngModel]="tf.datanascimento" required>
+            name="datanascimento" #datanascimento="ngModel" [ngModel]="tf.datanascimento" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!datanascimento.valid && datanascimento.touched">Obrigatório</div>
         </div>
         <!-- NIF -->
         <div class=" form-group col-md-2">
           <label for="inputNIF">NIF *</label>
-          <input type="number" class="form-control" id="inputNIF" name="nif" #nif="ngModel" [ngModel]="tf.nif" required>
+          <input type="number" class="form-control" id="inputNIF" name="nif" #nif="ngModel" [ngModel]="tf.nif" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!nif.valid && nif.touched">Obrigatório</div>
         </div>
         <!-- ESTADO CIVIL -->
         <div class=" form-group col-md-2">
           <label for="inputEstadoCivil">Estado Civil *</label>
           <select class="form-control" id="inputEstadoCivil" name="estadocivil" #estadocivil="ngModel"
-            [ngModel]="tf.estadocivil" required>
+            [ngModel]="tf.estadocivil" required [disabled]="edit">
             <option *ngFor="let s of sitfamiliares" [value]="s.id">{{s.nome}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="!estadocivil.valid && estadocivil.touched">Obrigatório</div>
@@ -48,14 +50,14 @@
         <!-- FILHOS -->
         <div class=" form-group col-md-1">
           <label for="inputFilhos">Filhos</label>
-          <input type="number" class="form-control" id="inputFilhos" name="filhos" [ngModel]="tf.filhos">
+          <input type="number" class="form-control" id="inputFilhos" name="filhos" [ngModel]="tf.filhos" [readonly]="edit">
         </div>
       </div>
       <!-- DOCUMENTO DE IDENTIFICAÇÃO -->
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>Documento Identificação *</label>
-          <select class="form-control" name="tipodoc" #tipodoc="ngModel" [ngModel]="tf.tipodoc" required>
+          <select class="form-control" name="tipodoc" #tipodoc="ngModel" [ngModel]="tf.tipodoc" required [disabled]="edit">
             <option *ngFor="let td of tiposdoc" [value]="td.id">{{td.nome}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="!tipodoc.valid && tipodoc.touched">Obrigatório</div>
@@ -64,21 +66,21 @@
         <div class=" form-group col-md-2">
           <label for="numdoc">Numero documento *</label>
           <input type="text" class="form-control" id="numdoc" name="numdocumento" #numdocumento="ngModel"
-            [ngModel]="tf.numdocumento" required>
+            [ngModel]="tf.numdocumento" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!numdocumento.valid && numdocumento.touched">Obrigatório</div>
         </div>
         <!-- VALIDADE -->
         <div class="form-group col-md-2">
           <label>Validade *</label>
           <input type="text" class="form-control" name="validade" placeholder="dd-mm-aaaa" mask="d0-M0-0000"
-            #validade="ngModel" [ngModel]="tf.validade" required>
+            #validade="ngModel" [ngModel]="tf.validade" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!validade.valid && validade.touched">Obrigatório</div>
         </div>
         <!-- NACIONALIDADE -->
         <div class="form-group col-md-3">
           <label>Nacionalidade *</label>
           <select class="form-control" name="nacionalidade" #nacionalidade="ngModel" [ngModel]="tf.nacionalidade"
-            required>
+            required [disabled]="edit">
             <option *ngFor="let n of nacionalidades" [value]="n.nacionalidade">{{n.nacionalidade}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="!nacionalidade.valid && nacionalidade.touched">Obrigatório</div>
@@ -89,14 +91,14 @@
         <div class="form-group col-md-2">
           <label for="inputTelefone">Telefone *</label>
           <input type="text" class="form-control" id="inputTelefone" name="telefone" #tel="ngModel"
-            [ngModel]="tf.telefone" required>
+            [ngModel]="tf.telefone" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!tel.valid && tel.touched">Obrigatório</div>
         </div>
         <!-- EMAIL -->
         <div class=" form-group col-md-4">
           <label for="inputEmail">Email *</label>
           <input type="email" class="form-control" id="inputEmail" name="email" #email="ngModel" [ngModel]="tf.email"
-            required>
+            required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!email.valid && email.touched">Obrigatório</div>
         </div>
       </div>
@@ -105,7 +107,7 @@
         <div class=" form-group col-md-2">
           <label for="inputHabitacao">Habitação *</label>
           <select class="form-control" id="inputHabitacao" name="tipohabitacao" #habitacao="ngModel"
-            [ngModel]="tf.tipohabitacao" required>
+            [ngModel]="tf.tipohabitacao" required [disabled]="edit">
             <option selected>...</option>
             <option value="1">Alugada</option>
             <option value="2">Familiares</option>
@@ -118,19 +120,19 @@
         <div class="form-group col-md-2" *ngIf="(habitacao.value==1 || habitacao.value==3)">
           <label for="inputRenda">Renda/Prestação</label>
           <input type="number" class="form-control" id="inputRenda" name="valorhabitacao"
-            [ngModel]="tf.valorhabitacao" />
+            [ngModel]="tf.valorhabitacao"  [readonly]="edit">
         </div>
         <div class="form-group col-md-2" *ngIf="habitacao.value==1">
           <label for="">Declarada</label>
           <div class="input-group">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="declarada" id="declaradasim" value="Sim"
-                [ngModel]="tf.declarada">
+                [ngModel]="tf.declarada"  [readonly]="edit">
               <label class="form-check-label" for="declaradasim">Sim</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="declarada" id="declaradanao" value="Nao"
-                [ngModel]="tf.declarada">
+                [ngModel]="tf.declarada" [readonly]="edit">
               <label class="form-check-label" for="declaradanao">Não</label>
             </div>
           </div>
@@ -138,7 +140,7 @@
         <div class=" form-group col-md-2">
           <label for="inputAnoHabitacao">Desde</label>
           <input type="number" min="1920" max="2030" class="form-control" placeholder="ano" id="inputAnoHabitacao"
-            name="anoiniciohabitacao" [ngModel]="tf.anoiniciohabitacao">
+            name="anoiniciohabitacao" [ngModel]="tf.anoiniciohabitacao" [readonly]="edit">
         </div>
       </div>
       <!-- MORADA -->
@@ -146,21 +148,21 @@
         <div class=" form-group col-md-6">
           <label for="rua">Morada *</label>
           <input type="text" class="form-control" id="rua" name="morada" #morada="ngModel" [ngModel]="tf.morada"
-            required>
+            required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!morada.valid && morada.touched">Obrigatório</div>
         </div>
         <!-- LOCALIDADE -->
         <div class=" form-group col-md-4">
           <label for="localidade">Localidade *</label>
           <input type="text" class="form-control" id="localidade" name="localidade" #loc="ngModel"
-            [ngModel]="tf.localidade" required>
+            [ngModel]="tf.localidade" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!loc.valid && loc.touched">Obrigatório</div>
         </div>
         <!-- CODIGO POSTAL -->
         <div class=" form-group col-md-2">
           <label for="cpostal">Codigo Postal *</label>
           <input type="text" class="form-control" id="cpostal" placeholder="xxxx-zzz" mask="0000-000" name="cpostal"
-            #cp="ngModel" [ngModel]="tf.cpostal" required>
+            #cp="ngModel" [ngModel]="tf.cpostal" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!cp.valid && cp.touched">Obrigatório</div>
         </div>
       </div>
@@ -172,7 +174,7 @@
         <div class=" form-group col-md-3">
           <label for="inputProfissaao">Sector *</label>
           <select class="form-control" id="inputProfissaao" name="profissao" #prof="ngModel" [ngModel]="tf.profissao"
-            required>
+            required [disabled]="edit">
             <option value="privado">Privado</option>
             <option value="publico">Publico</option>
           </select>
@@ -182,7 +184,7 @@
         <div class=" form-group col-md-2">
           <label for="inputTipocontrato">Tipo Contrato *</label>
           <select class="form-control" id="inputTipocontrato" name="tipocontrato" #tipocont="ngModel"
-            [ngModel]="tf.tipocontrato" required>
+            [ngModel]="tf.tipocontrato" required [disabled]="edit">
             <option value="1">Efectivo</option>
             <option value="2">Termo Certo</option>
             <option value="3">Independente</option>
@@ -197,21 +199,21 @@
         <div class=" form-group col-md-2">
           <label for="inputVencimento">Vencimento *</label>
           <input type="number" class="form-control" id="inputVencimento" name="vencimento" #venc="ngModel"
-            [ngModel]="tf.vencimento" required>
+            [ngModel]="tf.vencimento" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!venc.valid && venc.touched">Obrigatório</div>
         </div>
         <!-- ANO DE INICIO -->
         <div class=" form-group col-md-2">
           <label for="inputAnoInicio">Ano Inicio *</label>
           <input type="number" min="1960" max="2030" class="form-control" placeholder="ano" id="inputAnoInicio"
-            name="anoinicio" #anoini="ngModel" [ngModel]="tf.anoinicio" required>
+            name="anoinicio" #anoini="ngModel" [ngModel]="tf.anoinicio" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!anoini.valid && anoini.touched">Obrigatório</div>
         </div>
         <!-- MES DE INICIO -->
         <div class=" form-group col-md-2">
           <label for="mesinicio">Mês Inicio *</label>
-          <select class="custom-select" id="mesinicio" name="mesinicio" #mesini="ngModel" [ngModel]="tf.mesinicio"
-            required>
+          <select class="custom-select" id="mesinicio" name="mesinicio" aria-placeholder="mes" #mesini="ngModel" [ngModel]="tf.mesinicio"
+            required [disabled]="edit">
             <option selected>...</option>
             <option value="1">Janeiro</option>
             <option value="2">Fevereiro</option>
@@ -232,21 +234,21 @@
         <div class=" form-group col-md-6">
           <label for="nomeempresa">Nome da empresa *</label>
           <input type="text" class="form-control" id="nomeempresa" name="nomeempresa" #nomeemp="ngModel"
-            [ngModel]="tf.nomeempresa" required>
+            [ngModel]="tf.nomeempresa" required  [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!nomeemp.valid && nomeemp.touched">Obrigatório</div>
         </div>
         <!-- NIF DA EMPRESA -->
         <div class=" form-group col-md-2">
           <label for="nifempresa">NIF empresa *</label>
           <input type="number" class="form-control" id="nifempresa" name="nifempresa" #nifemp="ngModel"
-            [ngModel]="tf.nifempresa" required>
+            [ngModel]="tf.nifempresa" required  [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!nifemp.valid && nifemp.touched">Obrigatório</div>
         </div>
         <!-- TELEFONE DA EMPRESA -->
         <div class=" form-group col-md-2">
           <label for="telefoneempresa">Telefone *</label>
           <input type="number" class="form-control" id="telefoneempresa" name="telefoneempresa" #telemp="ngModel"
-            [ngModel]="tf.telefoneempresa" required>
+            [ngModel]="tf.telefoneempresa" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!telemp.valid && telemp.touched">Obrigatório</div>
         </div>
       </div>
@@ -257,24 +259,24 @@
       <div class="form-row" *ngFor="let or of ORArr; index as i; last as isLast">
         <div class=" form-group col-md-4">
           <label for="inputOR" *ngIf="i==0">Outros Rendimentos</label>
-          <input type="text" class="form-control" id="inputOR" name="orRendimento{{i}}" [ngModel]="or.tiporendimento">
+          <input type="text" class="form-control" id="inputOR" name="orRendimento{{i}}" [ngModel]="or.tiporendimento" [readonly]="edit">
         </div>
         <div class=" form-group col-md-2">
           <label for="inputORValor" *ngIf="i==0">Valor</label>
           <input type="number" class="form-control" id="inputORValor" name="orValor{{i}}"
-            [ngModel]="or.valorrendimento">
+            [ngModel]="or.valorrendimento" [readonly]="edit">
         </div>
         <div class=" form-group col-md-2">
           <label for="inputPeriocidade" *ngIf="i==0">Periocidade</label>
           <div class="input-group mb-3">
-            <select class="custom-select" id="inputPeriocidade" name="orPeriocidade{{i}}" [ngModel]="or.periocidade">
+            <select class="custom-select" id="inputPeriocidade" name="orPeriocidade{{i}}" [ngModel]="or.periocidade" [disabled]="edit">
               <option selected>...</option>
               <option value="Mes">Mensal</option>
               <option value="Ano">Anual</option>
             </select>
           </div>
         </div>
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-1"  *ngIf="edit">
           <label for="add" *ngIf="i==0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
           <a *ngIf="i==0 || isLast" id="add" class="btn btn" title="Adicionar uma linha"
             (click)="addLineOutrosRendimentos()"><i class="fa fa-plus-circle"></i></a>
@@ -286,18 +288,18 @@
       <div class="form-row" *ngFor="let oc of OCArr; index as i; last as isLast;">
         <div class="form-group col-md-4">
           <label for="inputOC" *ngIf="i==0">Outros Créditos</label>
-          <input type="text" class="form-control" id="inputOC" name="ocCredito{{i}}" [ngModel]="oc.tipocredito">
+          <input type="text" class="form-control" id="inputOC" name="ocCredito{{i}}" [ngModel]="oc.tipocredito" [readonly]="edit">
         </div>
         <div class="form-group col-md-2">
           <label for="inputOCValor" *ngIf="i==0">Valor</label>
-          <input type="number" class="form-control" id="inputOCValor" name="ocValor{{i}}" [ngModel]="oc.valorcredito">
+          <input type="number" class="form-control" id="inputOCValor" name="ocValor{{i}}" [ngModel]="oc.valorcredito" [readonly]="edit">
         </div>
         <div class="form-group col-md-2">
           <label for="inputPrestacao" *ngIf="i==0">Prestação</label>
           <input type="number" class="form-control" id="inputOCPrestacao" name="ocPrestacao{{i}}"
-            [ngModel]="oc.prestacao">
+            [ngModel]="oc.prestacao" [readonly]="edit">
         </div>
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-1"  *ngIf="edit">
           <label for="add" *ngIf="i==0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
           <a *ngIf="i==0 || isLast" id="add" class="btn btn" title="Adicionar uma linha"
             (click)="addLineOutrosCreditos()"><i class="fa fa-plus-circle"></i></a>
@@ -310,14 +312,14 @@
         <div class=" form-group col-md-2">
           <label for="inputOC">Valor Pretendido *</label>
           <input type="number" class="form-control" id="inputValorPretendido" name="valorpretendido"
-            #valorpret="ngModel" [ngModel]="tf.valorpretendido" required>
+            #valorpret="ngModel" [ngModel]="tf.valorpretendido" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!valorpret.valid && valorpret.touched">Obrigatório</div>
         </div>
         <!-- TIPO DE CREDITO -->
         <div class=" form-group col-md-2">
           <label for="inputTipocredito">Tipo Crédito *</label>
           <select class="custom-select" id="inputTipocredito" name="tipocredito" #tipocredito="ngModel"
-            [ngModel]="tf.tipocredito" required>
+            [ngModel]="tf.tipocredito" required [disabled]="edit">
             <option selected>...</option>
             <option value="CP">Pessoal</option>
             <option value="CC">Consolidado</option>
@@ -329,18 +331,18 @@
         <div class=" form-group col-md-2">
           <label for="inputPrazo">Prazo</label>
           <input type="number" class="form-control" id="inputPrazo" name="prazopretendido"
-            [ngModel]="tf.prazopretendido">
+            [ngModel]="tf.prazopretendido" [readonly]="edit">
         </div>
         <!-- PRESTAÇÃO -->
         <div class=" form-group col-md-2">
           <label for="inputPrestacao">Prestação</label>
           <input type="number" class="form-control" id="inputPrestacao" name="prestacaopretendida"
-            [ngModel]="tf.prestacaopretendida">
+            [ngModel]="tf.prestacaopretendida" [readonly]="edit">
         </div>
         <!-- FINALIDADE -->
         <div class=" form-group col-md-6">
           <label for="inputFinalidade">Finalidade</label>
-          <input type="text" class="form-control" id="inputFinalidade" name="finalidade" [ngModel]="tf.finalidade">
+          <input type="text" class="form-control" id="inputFinalidade" name="finalidade" [ngModel]="tf.finalidade" [readonly]="edit">
         </div>
       </div>
       <!-- DaDOS BANCARIOS   -->
@@ -349,18 +351,18 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>IBAN *</label>
-          <input type="text" class="form-control" name="iban" #iban="ngModel" [ngModel]="tf.iban" required>
+          <input type="text" class="form-control" name="iban" #iban="ngModel" [ngModel]="tf.iban" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!iban.valid && iban.touched">Obrigatório</div>
         </div>
         <div class="form-group col-md-2">
           <label>Desde *</label>
           <input type="number" class="form-control" name="desdeiban" placeholder="ano" #ibandesde="ngModel"
-            [ngModel]="tf.desdeiban" required>
+            [ngModel]="tf.desdeiban" required [readonly]="edit">
           <div class="alert alert-danger" *ngIf="!ibandesde.valid && ibandesde.touched">Obrigatório</div>
         </div>
         <div class="form-group col-md-2">
           <label>Dia pagamento</label>
-          <select class="form-control" name="diapagamento" [ngModel]="tf.diapagamento">
+          <select class="form-control" name="diapagamento" [ngModel]="tf.diapagamento" [disabled]="edit">
             <option value="1">1</option>
             <option value="5">5</option>
             <option value="10">10</option>
@@ -372,14 +374,14 @@
       <div class="form-row">
         <div class=" form-group col-md-12">
           <label>Outras informações</label>
-          <textarea class="form-control" rows="2" name="info" [ngModel]="tf.info"></textarea>
+          <textarea class="form-control" rows="2" name="info" [ngModel]="tf.info" [readonly]="edit"></textarea>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>Vai usar um segundo titular para reforço da proposta?</label>
           <select class="form-control" name="segundoproponente" #segprop="ngModel" [ngModel]="tf.segundoproponente"
-           (change)="opcaoSegundoTitular(segprop.value, f.value)" required>
+           (change)="opcaoSegundoTitular(segprop.value, f.value)" required  [disabled]="edit">
             <option value="1">SIM</option>
             <option value="0">NÃO</option>
           </select>
@@ -398,8 +400,11 @@
         <div class="form-row">
           <div class=" form-group col-md-2">
             <label for="segtitular">2º titular</label>
-            <input type="checkbox" class="form-control" id="segtitular" #titular2="ngModel" name="segundoproponente"
-              [ngModel]="tf.segundoproponente">
+            <select class="form-control"  #titular2="ngModel" name="segundoproponente"
+             [ngModel]="tf.segundoproponente" [disabled]="edit"> 
+                <option value="1" [selected]="segprop.value==1">SIM</option>
+                <option value="1" [selected]="segprop.value==0">NÃO</option>
+            </select>
           </div>
         </div>
         <!--  Segundo titular selecionado   -->
@@ -408,7 +413,7 @@
             <div class=" form-group col-md-3">
               <label for="inputRelacao">Relação familiar</label>
               <select class="form-control" name="relacaofamiliar" [ngModel]="tf.relacaofamiliar"
-                required="titular2.value==1">
+                required="titular2.value==1" [disabled]="edit">
                 <option *ngFor="let rf of relacoes" [value]="rf.id">{{rf.descricao}}</option>
               </select>
             </div>
@@ -416,40 +421,40 @@
             <div class=" form-group col-md-4">
               <label for="inputNome2">Nome 2º titular *</label>
               <input type="text" class="form-control" id="inputNome2" name="nome2" [ngModel]="tf.nome2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="inputIdade2">Data de nascimento *</label>
               <input type="text" class="form-control" id="datanascimento2" name="datanascimento2"
-                placeholder="dd-mm-aaaa" mask="d0-M0-0000" [ngModel]="tf.datanascimento2" require="titular2.value==1">
+                placeholder="dd-mm-aaaa" mask="d0-M0-0000" [ngModel]="tf.datanascimento2" require="titular2.value==1" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="inputNIF2">NIF *</label>
               <input type="number" class="form-control" id="inputNIF2" name="nif2" [ngModel]="tf.nif2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-3">
               <label>Documento Identificação *</label>
-              <select class="form-control" name="tipodoc2" [ngModel]="tf.tipodoc2" required="titular2.value==1">
+              <select class="form-control" name="tipodoc2" [ngModel]="tf.tipodoc2" required="titular2.value==1" [disabled]="edit">
                 <option *ngFor="let td of tiposdoc" [value]="td.id">{{td.nome}}</option>
               </select>
             </div>
             <div class=" form-group col-md-2">
               <label for="numdoc2">Numero documento *</label>
               <input type="text" class="form-control" id="numdoc2" name="numdocumento2" [ngModel]="tf.numdocumento2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
             <div class="form-group col-md-2">
               <label>Validade *</label>
               <input type="text" class="form-control" name="validade2" placeholder="dd-mm-aaaa" mask="d0-M0-0000"
-                [ngModel]="tf.validade2" required="titular2.value==1">
+                [ngModel]="tf.validade2" required="titular2.value==1" [readonly]="edit">
             </div>
             <div class="form-group col-md-3">
               <label>Nacionalidade *</label>
               <select class="form-control" name="nacionalidade2" [ngModel]="tf.nacionalidade2"
-                required="titular2.value==1">
+                required="titular2.value==1" [disabled]="edit">
                 <option value="portuguesa" selected="">Portuguesa</option>
                 <option *ngFor="let n of nacionalidades" [value]="n.nacionalidade">{{n.nacionalidade}}</option>
               </select>
@@ -459,13 +464,13 @@
             <div class="form-group col-md-2">
               <label for="inputTelefone2">Telefone *</label>
               <input type="text" class="form-control" id="inputTelefone2" name="telefone2" [ngModel]="tf.telefone2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
 
             <div class=" form-group col-md-4">
               <label for="inputEmail2">Email *</label>
               <input type="email" class="form-control" id="inputEmail2" name="email2" [ngModel]="tf.email2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
           </div>
 
@@ -476,7 +481,7 @@
               <label for="inputAddress2">Habitação do 2º Proponente</label>
               <div class="form-check form-check-inline">
                 <input class="form-control" type="checkbox" name="mesmahabitacao2" id="mesmahabitacao2"
-                  #mesmaHbit="ngModel" [ngModel]="tf.mesmahabitacao2">
+                  #mesmaHbit="ngModel" [ngModel]="tf.mesmahabitacao2" [readonly]="edit">
                 <label class="form-check-label" for="mesmahabitacao2">Mesma do 1º</label>
               </div>
             </div>
@@ -484,7 +489,7 @@
               <label for="inputHabitacao2">Habitação</label>
               <div class="input-group mb-3">
                 <select class="custom-select" id="inputHabitacao2" name="tipohabitacao2" [ngModel]="tf.tipohabitacao2"
-                  [required]="titular2.value==1 && !mesmaHabit.value">
+                  [required]="titular2.value==1 && !mesmaHabit.value" [disabled]="edit">
                   <option selected>...</option>
                   <option value="1">Alugada</option>
                   <option value="2">Familiares</option>
@@ -497,7 +502,7 @@
               *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==4)">
               <label for="inputRenda2">Renda/Prestação</label>
               <input type="number" class="form-control" id="inputRenda2" name="valorhabitacao2"
-                [ngModel]="tf.valorhabitacao2" [required]="titular2.value==1 && !mesmaHabit.value" />
+                [ngModel]="tf.valorhabitacao2" [required]="titular2.value==1 && !mesmaHabit.value" [readonly]="edit">
             </div>
             <div class="form-group col-md-2"
               *ngIf="!f.value.mesmahabitacao2 && (f.value.habitacao2==1 || f.value.habitacao2==4)">
@@ -505,12 +510,12 @@
               <div class="input-group">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" id="declarada2sim" value="sim" name="declarada2"
-                    [ngModel]="tf.declarada2">
+                    [ngModel]="tf.declarada2" [readonly]="edit">
                   <label class="form-check-label" for="declarada2sim">Sim</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" id="declarada2nao" value="nao" name="declarada2"
-                    [ngModel]="tf.declarada2">
+                    [ngModel]="tf.declarada2" [readonly]="edit">
                   <label class="form-check-label" for="declarada2nao">Não</label>
                 </div>
               </div>
@@ -519,24 +524,24 @@
               <label for="inputAnoHabitacao2">Desde</label>
               <input type="number" min="1920" max="2030" class="form-control" id="inputAnoHabitacao2"
                 name="anoiniciohabitacao2" [ngModel]="tf.anoiniciohabitacao2"
-                [required]="titular2.value==1 && !mesmaHabit.value">
+                [required]="titular2.value==1 && !mesmaHabit.value" [readonly]="edit">
             </div>
           </div>
           <div class="form-row" *ngIf="!f.value.mesmahabitacao2">
             <div class=" form-group col-md-6">
               <label for="rua2">Morada</label>
               <input type="text" class="form-control" id="rua2" name="morada2" [ngModel]="tf.morada2"
-                required="titular2.value==1 && !mesmaHabit.value">
+                required="titular2.value==1 && !mesmaHabit.value" [readonly]="edit">
             </div>
             <div class=" form-group col-md-4">
               <label for="localidade2">Localidade</label>
               <input type="text" class="form-control" id="localidade2" name="localidade2" [ngModel]="tf.localidade2"
-                required="titular2.value==1 && !mesmaHabit.value">
+                required="titular2.value==1 && !mesmaHabit.value" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="cpostal2">Codigo Postal</label>
               <input type="text" class="form-control" id="cpostal2" name="cpostal2" placeholder="xxxx-zzz"
-                mask="0000-000" [ngModel]="tf.cpostal2" required="titular2.value==1 && !mesmaHabit.value">
+                mask="0000-000" [ngModel]="tf.cpostal2" required="titular2.value==1 && !mesmaHabit.value" [readonly]="edit">
             </div>
           </div>
 
@@ -548,7 +553,7 @@
             <div class=" form-group col-md-3">
               <label for="inputProfissao2">Sector *</label>
               <select class="form-control" id="inputProfissao2" name="profissao2" [ngModel]="tf.profissao2"
-                required="titular2.value==1">
+                required="titular2.value==1" [disabled]="edit">
                 <option value="privado">Privado</option>
                 <option value="publico">Publico</option>
               </select>
@@ -557,7 +562,7 @@
               <label for="inputTipocontrato2">Tipo Contrato *</label>
               <div class="input-group mb-3">
                 <select class="custom-select" id="inputTipocontrato2" name="tipocontrato2" [ngModel]="tf.tipocontrato2"
-                  required="titular2.value==1">
+                  required="titular2.value==1" [disabled]="edit">
                   <option selected>...</option>
                   <option value="1">Efectivo</option>
                   <option value="2">Termo Certo</option>
@@ -572,18 +577,18 @@
             <div class=" form-group col-md-2">
               <label for="inputVencimento2">Vencimento *</label>
               <input type="number" class="form-control" id="inputVencimento2" name="vencimento2"
-                [ngModel]="tf.vencimento2" required="titular2.value==1">
+                [ngModel]="tf.vencimento2" required="titular2.value==1" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="inputAnoInicio2">Ano Inicio *</label>
               <input type="number" min="1960" max="2030" class="form-control" id="inputAnoInicio2" name="anoinicio2"
-                placeholder="ano" [ngModel]="tf.anoinicio2" required="titular2.value==1">
+                placeholder="ano" [ngModel]="tf.anoinicio2" required="titular2.value==1" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="mesinicio2">Mês Inicio *</label>
               <div class="input-group mb-3">
                 <select class="custom-select" id="mesinicio2" name="mesinicio2" [ngModel]="tf.mesinicio2"
-                  required="titular2.value==1">
+                  required="titular2.value==1" [disabled]="edit">
                   <option selected>...</option>
                   <option value="1">Janeiro</option>
                   <option value="2">Fevereiro</option>
@@ -603,28 +608,31 @@
             <div class=" form-group col-md-6">
               <label for="nomeempresa2">Nome da empresa *</label>
               <input type="text" class="form-control" id="nomeempresa2" name="nomeempresa2" [ngModel]="tf.nomeempresa2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="nifempresa2">NIF empresa *</label>
               <input type="number" class="form-control" id="nifempresa2" name="nifempresa2" [ngModel]="tf.nifempresa2"
-                required="titular2.value==1">
+                required="titular2.value==1" [readonly]="edit">
             </div>
             <div class=" form-group col-md-2">
               <label for="telefoneempresa2">Telefone *</label>
               <input type="number" class="form-control" id="telefoneempresa2" name="telefoneempresa2"
-                [ngModel]="tf.telefoneempresa2" required="titular2.value==1">
+                [ngModel]="tf.telefoneempresa2" required="titular2.value==1" [readonly]="edit">
             </div>
           </div>
           </div>
 
       </div>
       </div>
-      <div class="btn-row text-center mt-5">
+      <div class="btn-row text-center mt-5" *ngIf="!edit">
         <button class="btn btn-danger" type="button" (click)="limparForm()">Limpar Formulário</button>
         <button class="btn btn-info" type="button" (click)="saveForm(f)">Guardar (temporariamente)</button>
         <button class="btn btn-success" [disabled]="!f.valid" type="submit">Seguinte - Anexar Documentação</button>
         <button class="btn btn-warning" (click)="back()">Cancelar</button>
+      </div>
+      <div class="btn-row text-center mt-5" *ngIf="edit">
+        <button class="btn btn-warning" type="button" (click)="back()"> Voltar</button>
       </div>
     
   </form>
